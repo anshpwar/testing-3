@@ -1,0 +1,21 @@
+{
+  "generated_by": "tools/gen_manifest.py",
+  "rules": {
+    "appointment_buffer_minutes": "a5d840efa2e1",
+    "bed_day_rate_cents": "35549da49ab6",
+    "consult_fee_cents": "f951da9a5b20",
+    "copay_cents": "5399bb60075d",
+    "discharge_review_hours": "1a97fa223b46",
+    "dose_ceiling_mg": "4d01cfaaefdb",
+    "fall_risk_points": "e9cfeba488dd",
+    "insurer_coverage_bp": "cf90a31adc32",
+    "lab_turnaround_minutes": "5674c9aee5e9",
+    "late_payment_fee_bp": "385f4022b983",
+    "max_refills": "f06292658f54",
+    "max_supply_days": "c1020a7ec80b",
+    "no_show_fee_cents": "cb0207761bcb",
+    "nurse_patient_limit": "ecab72beb869",
+    "recheck_interval_hours": "5cf87c72ebf8",
+    "room_overhead_cents": "d39e2eb07ca4"
+  }
+}
