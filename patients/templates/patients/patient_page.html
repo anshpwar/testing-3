@@ -1,0 +1,7 @@
+<h1>{{ patient.display_name }}</h1>
+<p class="mrn">{{ patient.mrn }}</p>
+<ul class="allergies">
+{% for allergy in allergies %}  <li>{{ allergy.substance }}: {{ allergy.severity }}</li>
+{% empty %}  <li>No known allergies</li>
+{% endfor %}</ul>
+{% if contact %}<p class="contact">Emergency contact: {{ contact.name }} ({{ contact.relationship }}) {{ contact.phone }}</p>{% endif %}
