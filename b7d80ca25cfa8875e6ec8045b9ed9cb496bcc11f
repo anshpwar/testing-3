@@ -1,0 +1,19 @@
+{
+  "env": "prod",
+  "finished_at": "2025-01-13T18:41:00+0000",
+  "kind": "deployment",
+  "patch_id": "1a7ceff8b47f50b04af7dc0e6c71543a8446a820",
+  "run_id": "dep-r03-0002",
+  "schema_version": 1,
+  "services": [
+    "clinic-web",
+    "hl7-gateway"
+  ],
+  "source": "fixture-deployer",
+  "started_at": "2025-01-13T18:35:00+0000",
+  "status": "SUCCEEDED",
+  "subject_commit": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+  "suite": "n/a",
+  "suite_digest": "9d9afa86f0cc934d09f3b9cccfd97c6acf3938ae",
+  "synthetic": true
+}
