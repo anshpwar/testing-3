@@ -25,21 +25,21 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(rules.room_overhead_cents(61), 5000)
 
     def test_bed_day_rate_cents(self):
-        self.assertEqual(rules.bed_day_rate_cents(0), 35000)
-        self.assertEqual(rules.bed_day_rate_cents(1), 35000)
-        self.assertEqual(rules.bed_day_rate_cents(2), 60000)
-        self.assertEqual(rules.bed_day_rate_cents(3), 120000)
-        self.assertEqual(rules.bed_day_rate_cents(4), 250000)
+        self.assertEqual(rules.bed_day_rate_cents(0), 38500)
+        self.assertEqual(rules.bed_day_rate_cents(1), 38500)
+        self.assertEqual(rules.bed_day_rate_cents(2), 66000)
+        self.assertEqual(rules.bed_day_rate_cents(3), 132000)
+        self.assertEqual(rules.bed_day_rate_cents(4), 275000)
 
     def test_dose_ceiling_mg(self):
-        self.assertEqual(rules.dose_ceiling_mg(0), 150)
-        self.assertEqual(rules.dose_ceiling_mg(1), 150)
-        self.assertEqual(rules.dose_ceiling_mg(10), 150)
-        self.assertEqual(rules.dose_ceiling_mg(11), 500)
-        self.assertEqual(rules.dose_ceiling_mg(30), 500)
-        self.assertEqual(rules.dose_ceiling_mg(31), 1000)
-        self.assertEqual(rules.dose_ceiling_mg(70), 1000)
-        self.assertEqual(rules.dose_ceiling_mg(71), 1500)
+        self.assertEqual(rules.dose_ceiling_mg(0), 132)
+        self.assertEqual(rules.dose_ceiling_mg(1), 132)
+        self.assertEqual(rules.dose_ceiling_mg(10), 132)
+        self.assertEqual(rules.dose_ceiling_mg(11), 438)
+        self.assertEqual(rules.dose_ceiling_mg(30), 438)
+        self.assertEqual(rules.dose_ceiling_mg(31), 875)
+        self.assertEqual(rules.dose_ceiling_mg(70), 875)
+        self.assertEqual(rules.dose_ceiling_mg(71), 1313)
 
     def test_max_refills(self):
         self.assertEqual(rules.max_refills(0), 0)
