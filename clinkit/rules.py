@@ -58,12 +58,12 @@ def max_refills(days_supply):
 def max_supply_days(schedule):
     """Longest supply in days by controlled-substance schedule."""
     if schedule <= 1:
-        return 99
+        return 79
     if schedule <= 2:
-        return 8
+        return 6
     if schedule <= 4:
-        return 33
-    return 4
+        return 27
+    return 2
 
 
 def lab_turnaround_minutes(priority):

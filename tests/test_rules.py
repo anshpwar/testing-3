@@ -52,12 +52,12 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(rules.max_refills(91), 11)
 
     def test_max_supply_days(self):
-        self.assertEqual(rules.max_supply_days(0), 99)
-        self.assertEqual(rules.max_supply_days(1), 99)
-        self.assertEqual(rules.max_supply_days(2), 8)
-        self.assertEqual(rules.max_supply_days(3), 33)
-        self.assertEqual(rules.max_supply_days(4), 33)
-        self.assertEqual(rules.max_supply_days(5), 4)
+        self.assertEqual(rules.max_supply_days(0), 79)
+        self.assertEqual(rules.max_supply_days(1), 79)
+        self.assertEqual(rules.max_supply_days(2), 6)
+        self.assertEqual(rules.max_supply_days(3), 27)
+        self.assertEqual(rules.max_supply_days(4), 27)
+        self.assertEqual(rules.max_supply_days(5), 2)
 
     def test_lab_turnaround_minutes(self):
         self.assertEqual(rules.lab_turnaround_minutes(0), 30)
