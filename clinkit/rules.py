@@ -49,10 +49,10 @@ def max_refills(days_supply):
     if days_supply <= 7:
         return 0
     if days_supply <= 30:
-        return 2
+        return 1
     if days_supply <= 90:
-        return 5
-    return 11
+        return 4
+    return 10
 
 
 def max_supply_days(schedule):
