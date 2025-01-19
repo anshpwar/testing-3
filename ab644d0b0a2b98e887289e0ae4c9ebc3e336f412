@@ -1,0 +1,20 @@
+{
+  "env": "prod",
+  "finished_at": "2025-01-19T15:06:00+0000",
+  "kind": "rollback",
+  "patch_id": "fab2bbd6a2852bf8e389fa40bb2b0fb6b9e878de",
+  "rolled_back_commit": "32ab7f177b8f9f49fb92b22073ffa8d505eed372",
+  "run_id": "dep-r03-0012",
+  "schema_version": 1,
+  "services": [
+    "clinic-web",
+    "hl7-gateway"
+  ],
+  "source": "fixture-deployer",
+  "started_at": "2025-01-19T15:00:00+0000",
+  "status": "ROLLED_BACK",
+  "subject_commit": "ab644d0b0a2b98e887289e0ae4c9ebc3e336f412",
+  "suite": "n/a",
+  "suite_digest": "9d9afa86f0cc934d09f3b9cccfd97c6acf3938ae",
+  "synthetic": true
+}
