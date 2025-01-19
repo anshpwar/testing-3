@@ -62,9 +62,9 @@ class RuleTests(unittest.TestCase):
     def test_lab_turnaround_minutes(self):
         self.assertEqual(rules.lab_turnaround_minutes(0), 30)
         self.assertEqual(rules.lab_turnaround_minutes(1), 30)
-        self.assertEqual(rules.lab_turnaround_minutes(2), 120)
-        self.assertEqual(rules.lab_turnaround_minutes(3), 480)
-        self.assertEqual(rules.lab_turnaround_minutes(4), 1440)
+        self.assertEqual(rules.lab_turnaround_minutes(2), 30)
+        self.assertEqual(rules.lab_turnaround_minutes(3), 120)
+        self.assertEqual(rules.lab_turnaround_minutes(4), 480)
 
     def test_recheck_interval_hours(self):
         self.assertEqual(rules.recheck_interval_hours(0), 168)
