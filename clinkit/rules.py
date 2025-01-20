@@ -91,12 +91,12 @@ def recheck_interval_hours(abnormal_count):
 def appointment_buffer_minutes(duration_min):
     """Minutes kept free after an appointment, by its length."""
     if duration_min <= 15:
-        return 5
+        return 4
     if duration_min <= 30:
-        return 10
+        return 9
     if duration_min <= 60:
-        return 15
-    return 30
+        return 14
+    return 27
 
 
 def no_show_fee_cents(notice_hours):
