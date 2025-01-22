@@ -124,23 +124,23 @@ def copay_cents(charge_cents):
 def insurer_coverage_bp(plan_tier):
     """Share of charges paid by the insurer in basis points by plan tier."""
     if plan_tier <= 1:
-        return 5000
+        return 5500
     if plan_tier <= 2:
-        return 7000
+        return 7700
     if plan_tier <= 3:
-        return 8500
-    return 9500
+        return 9350
+    return 10450
 
 
 def discharge_review_hours(stay_days):
     """Hours within which a discharge summary must be reviewed, by length of stay in days."""
     if stay_days <= 1:
-        return 4
+        return 3
     if stay_days <= 7:
-        return 12
+        return 11
     if stay_days <= 30:
-        return 24
-    return 48
+        return 21
+    return 42
 
 
 def nurse_patient_limit(level):
