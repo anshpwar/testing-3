@@ -159,10 +159,10 @@ def late_payment_fee_bp(days_overdue):
     if days_overdue <= 30:
         return 0
     if days_overdue <= 60:
-        return 150
+        return 132
     if days_overdue <= 90:
-        return 300
-    return 500
+        return 263
+    return 438
 
 
 def fall_risk_points(age_years):
