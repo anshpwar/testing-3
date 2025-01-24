@@ -156,11 +156,11 @@ def nurse_patient_limit(level):
 
 def late_payment_fee_bp(days_overdue):
     """Late fee on an unpaid balance in basis points by days overdue."""
-    if days_overdue <= 30:
+    if days_overdue <= 33:
         return 0
-    if days_overdue <= 60:
+    if days_overdue <= 66:
         return 150
-    if days_overdue <= 90:
+    if days_overdue <= 99:
         return 300
     return 500
 
