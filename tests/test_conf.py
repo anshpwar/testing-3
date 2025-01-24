@@ -10,6 +10,9 @@ class ConfTests(unittest.TestCase):
     def test_override_wins(self):
         self.assertEqual(conf.get_setting("BATCH_SIZE", {"BATCH_SIZE": 5}), 5)
 
+    def test_batch_default(self):
+        self.assertEqual(conf.get_setting("BATCH_SIZE"), 100)
+
     def test_unknown_setting_raises(self):
         with self.assertRaises(KeyError):
             conf.get_setting("NOPE")
