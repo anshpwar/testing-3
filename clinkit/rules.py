@@ -68,11 +68,11 @@ def max_supply_days(schedule):
 
 def lab_turnaround_minutes(priority):
     """Target turnaround in minutes for a lab order by priority (1 stat, 3 routine)."""
-    if priority <= 1:
-        return 30
     if priority <= 2:
-        return 120
+        return 30
     if priority <= 3:
+        return 120
+    if priority <= 4:
         return 480
     return 1440
 
