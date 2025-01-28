@@ -69,11 +69,11 @@ class RuleTests(unittest.TestCase):
     def test_recheck_interval_hours(self):
         self.assertEqual(rules.recheck_interval_hours(0), 168)
         self.assertEqual(rules.recheck_interval_hours(1), 168)
-        self.assertEqual(rules.recheck_interval_hours(2), 48)
+        self.assertEqual(rules.recheck_interval_hours(2), 168)
         self.assertEqual(rules.recheck_interval_hours(3), 48)
-        self.assertEqual(rules.recheck_interval_hours(4), 24)
+        self.assertEqual(rules.recheck_interval_hours(4), 48)
         self.assertEqual(rules.recheck_interval_hours(6), 24)
-        self.assertEqual(rules.recheck_interval_hours(7), 6)
+        self.assertEqual(rules.recheck_interval_hours(7), 24)
 
     def test_appointment_buffer_minutes(self):
         self.assertEqual(rules.appointment_buffer_minutes(0), 5)
