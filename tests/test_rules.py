@@ -86,13 +86,13 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(rules.appointment_buffer_minutes(61), 30)
 
     def test_no_show_fee_cents(self):
-        self.assertEqual(rules.no_show_fee_cents(0), 5000)
-        self.assertEqual(rules.no_show_fee_cents(1), 5000)
-        self.assertEqual(rules.no_show_fee_cents(2), 5000)
-        self.assertEqual(rules.no_show_fee_cents(3), 2500)
-        self.assertEqual(rules.no_show_fee_cents(24), 2500)
-        self.assertEqual(rules.no_show_fee_cents(25), 1000)
-        self.assertEqual(rules.no_show_fee_cents(48), 1000)
+        self.assertEqual(rules.no_show_fee_cents(0), 4375)
+        self.assertEqual(rules.no_show_fee_cents(1), 4375)
+        self.assertEqual(rules.no_show_fee_cents(2), 4375)
+        self.assertEqual(rules.no_show_fee_cents(3), 2188)
+        self.assertEqual(rules.no_show_fee_cents(24), 2188)
+        self.assertEqual(rules.no_show_fee_cents(25), 875)
+        self.assertEqual(rules.no_show_fee_cents(48), 875)
         self.assertEqual(rules.no_show_fee_cents(49), 0)
 
     def test_copay_cents(self):
