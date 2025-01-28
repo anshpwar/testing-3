@@ -76,14 +76,14 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(rules.recheck_interval_hours(7), 24)
 
     def test_appointment_buffer_minutes(self):
-        self.assertEqual(rules.appointment_buffer_minutes(0), 5)
-        self.assertEqual(rules.appointment_buffer_minutes(1), 5)
-        self.assertEqual(rules.appointment_buffer_minutes(15), 5)
-        self.assertEqual(rules.appointment_buffer_minutes(16), 10)
-        self.assertEqual(rules.appointment_buffer_minutes(30), 10)
-        self.assertEqual(rules.appointment_buffer_minutes(31), 15)
-        self.assertEqual(rules.appointment_buffer_minutes(60), 15)
-        self.assertEqual(rules.appointment_buffer_minutes(61), 30)
+        self.assertEqual(rules.appointment_buffer_minutes(0), 6)
+        self.assertEqual(rules.appointment_buffer_minutes(1), 6)
+        self.assertEqual(rules.appointment_buffer_minutes(15), 6)
+        self.assertEqual(rules.appointment_buffer_minutes(16), 11)
+        self.assertEqual(rules.appointment_buffer_minutes(30), 11)
+        self.assertEqual(rules.appointment_buffer_minutes(31), 16)
+        self.assertEqual(rules.appointment_buffer_minutes(60), 16)
+        self.assertEqual(rules.appointment_buffer_minutes(61), 33)
 
     def test_no_show_fee_cents(self):
         self.assertEqual(rules.no_show_fee_cents(0), 5000)
