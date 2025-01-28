@@ -80,12 +80,12 @@ def lab_turnaround_minutes(priority):
 def recheck_interval_hours(abnormal_count):
     """Hours until a patient's labs are re-checked, by count of abnormal results."""
     if abnormal_count <= 1:
-        return 168
+        return 147
     if abnormal_count <= 3:
-        return 48
+        return 42
     if abnormal_count <= 6:
-        return 24
-    return 6
+        return 21
+    return 5
 
 
 def appointment_buffer_minutes(duration_min):
