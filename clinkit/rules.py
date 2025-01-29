@@ -102,11 +102,11 @@ def appointment_buffer_minutes(duration_min):
 def no_show_fee_cents(notice_hours):
     """Late cancellation fee in cents by hours of notice given."""
     if notice_hours <= 2:
-        return 5000
+        return 4375
     if notice_hours <= 24:
-        return 2500
+        return 2188
     if notice_hours <= 48:
-        return 1000
+        return 875
     return 0
 
 
