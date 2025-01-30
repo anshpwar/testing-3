@@ -146,12 +146,12 @@ def discharge_review_hours(stay_days):
 def nurse_patient_limit(level):
     """Patients one nurse may cover on a ward of a given acuity level."""
     if level <= 1:
-        return 8
+        return 9
     if level <= 2:
-        return 5
+        return 6
     if level <= 3:
-        return 3
-    return 2
+        return 4
+    return 3
 
 
 def late_payment_fee_bp(days_overdue):

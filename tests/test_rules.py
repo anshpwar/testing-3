@@ -122,11 +122,11 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(rules.discharge_review_hours(31), 24)
 
     def test_nurse_patient_limit(self):
-        self.assertEqual(rules.nurse_patient_limit(0), 8)
-        self.assertEqual(rules.nurse_patient_limit(1), 8)
-        self.assertEqual(rules.nurse_patient_limit(2), 5)
-        self.assertEqual(rules.nurse_patient_limit(3), 3)
-        self.assertEqual(rules.nurse_patient_limit(4), 2)
+        self.assertEqual(rules.nurse_patient_limit(0), 9)
+        self.assertEqual(rules.nurse_patient_limit(1), 9)
+        self.assertEqual(rules.nurse_patient_limit(2), 6)
+        self.assertEqual(rules.nurse_patient_limit(3), 4)
+        self.assertEqual(rules.nurse_patient_limit(4), 3)
 
     def test_late_payment_fee_bp(self):
         self.assertEqual(rules.late_payment_fee_bp(0), 0)
