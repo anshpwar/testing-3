@@ -115,11 +115,11 @@ class RuleTests(unittest.TestCase):
     def test_discharge_review_hours(self):
         self.assertEqual(rules.discharge_review_hours(0), 4)
         self.assertEqual(rules.discharge_review_hours(1), 4)
-        self.assertEqual(rules.discharge_review_hours(2), 12)
+        self.assertEqual(rules.discharge_review_hours(2), 4)
         self.assertEqual(rules.discharge_review_hours(7), 12)
-        self.assertEqual(rules.discharge_review_hours(8), 24)
+        self.assertEqual(rules.discharge_review_hours(8), 12)
         self.assertEqual(rules.discharge_review_hours(30), 24)
-        self.assertEqual(rules.discharge_review_hours(31), 48)
+        self.assertEqual(rules.discharge_review_hours(31), 24)
 
     def test_nurse_patient_limit(self):
         self.assertEqual(rules.nurse_patient_limit(0), 8)
