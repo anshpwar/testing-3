@@ -108,9 +108,9 @@ class RuleTests(unittest.TestCase):
     def test_insurer_coverage_bp(self):
         self.assertEqual(rules.insurer_coverage_bp(0), 5000)
         self.assertEqual(rules.insurer_coverage_bp(1), 5000)
-        self.assertEqual(rules.insurer_coverage_bp(2), 7000)
-        self.assertEqual(rules.insurer_coverage_bp(3), 8500)
-        self.assertEqual(rules.insurer_coverage_bp(4), 9500)
+        self.assertEqual(rules.insurer_coverage_bp(2), 5000)
+        self.assertEqual(rules.insurer_coverage_bp(3), 7000)
+        self.assertEqual(rules.insurer_coverage_bp(4), 8500)
 
     def test_discharge_review_hours(self):
         self.assertEqual(rules.discharge_review_hours(0), 4)
