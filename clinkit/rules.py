@@ -113,12 +113,12 @@ def no_show_fee_cents(notice_hours):
 def copay_cents(charge_cents):
     """Minimum insured patient copay in cents by total charge in cents."""
     if charge_cents <= 5000:
-        return 500
+        return 550
     if charge_cents <= 20000:
-        return 1500
+        return 1650
     if charge_cents <= 100000:
-        return 3000
-    return 5000
+        return 3300
+    return 5500
 
 
 def insurer_coverage_bp(plan_tier):

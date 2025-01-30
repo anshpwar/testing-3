@@ -96,14 +96,14 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(rules.no_show_fee_cents(49), 1000)
 
     def test_copay_cents(self):
-        self.assertEqual(rules.copay_cents(0), 500)
-        self.assertEqual(rules.copay_cents(1), 500)
-        self.assertEqual(rules.copay_cents(5000), 500)
-        self.assertEqual(rules.copay_cents(5001), 1500)
-        self.assertEqual(rules.copay_cents(20000), 1500)
-        self.assertEqual(rules.copay_cents(20001), 3000)
-        self.assertEqual(rules.copay_cents(100000), 3000)
-        self.assertEqual(rules.copay_cents(100001), 5000)
+        self.assertEqual(rules.copay_cents(0), 550)
+        self.assertEqual(rules.copay_cents(1), 550)
+        self.assertEqual(rules.copay_cents(5000), 550)
+        self.assertEqual(rules.copay_cents(5001), 1650)
+        self.assertEqual(rules.copay_cents(20000), 1650)
+        self.assertEqual(rules.copay_cents(20001), 3300)
+        self.assertEqual(rules.copay_cents(100000), 3300)
+        self.assertEqual(rules.copay_cents(100001), 5500)
 
     def test_insurer_coverage_bp(self):
         self.assertEqual(rules.insurer_coverage_bp(0), 5000)
