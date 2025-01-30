@@ -106,11 +106,11 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(rules.copay_cents(100001), 5000)
 
     def test_insurer_coverage_bp(self):
-        self.assertEqual(rules.insurer_coverage_bp(0), 5000)
-        self.assertEqual(rules.insurer_coverage_bp(1), 5000)
-        self.assertEqual(rules.insurer_coverage_bp(2), 7000)
-        self.assertEqual(rules.insurer_coverage_bp(3), 8500)
-        self.assertEqual(rules.insurer_coverage_bp(4), 9500)
+        self.assertEqual(rules.insurer_coverage_bp(0), 4375)
+        self.assertEqual(rules.insurer_coverage_bp(1), 4375)
+        self.assertEqual(rules.insurer_coverage_bp(2), 6125)
+        self.assertEqual(rules.insurer_coverage_bp(3), 7438)
+        self.assertEqual(rules.insurer_coverage_bp(4), 8313)
 
     def test_discharge_review_hours(self):
         self.assertEqual(rules.discharge_review_hours(0), 4)
