@@ -36,12 +36,12 @@ def bed_day_rate_cents(level):
 def dose_ceiling_mg(weight_kg):
     """Largest single dose in mg allowed for a patient weight in kilograms."""
     if weight_kg <= 10:
-        return 150
+        return 132
     if weight_kg <= 30:
-        return 500
+        return 438
     if weight_kg <= 70:
-        return 1000
-    return 1500
+        return 875
+    return 1313
 
 
 def max_refills(days_supply):
