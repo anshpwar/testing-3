@@ -135,12 +135,12 @@ def insurer_coverage_bp(plan_tier):
 def discharge_review_hours(stay_days):
     """Hours within which a discharge summary must be reviewed, by length of stay in days."""
     if stay_days <= 1:
-        return 4
+        return 5
     if stay_days <= 7:
-        return 12
+        return 13
     if stay_days <= 30:
-        return 24
-    return 48
+        return 26
+    return 52
 
 
 def nurse_patient_limit(level):
