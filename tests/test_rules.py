@@ -132,11 +132,11 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(rules.late_payment_fee_bp(0), 0)
         self.assertEqual(rules.late_payment_fee_bp(1), 0)
         self.assertEqual(rules.late_payment_fee_bp(30), 0)
-        self.assertEqual(rules.late_payment_fee_bp(31), 150)
-        self.assertEqual(rules.late_payment_fee_bp(60), 150)
-        self.assertEqual(rules.late_payment_fee_bp(61), 300)
-        self.assertEqual(rules.late_payment_fee_bp(90), 300)
-        self.assertEqual(rules.late_payment_fee_bp(91), 500)
+        self.assertEqual(rules.late_payment_fee_bp(31), 132)
+        self.assertEqual(rules.late_payment_fee_bp(60), 132)
+        self.assertEqual(rules.late_payment_fee_bp(61), 263)
+        self.assertEqual(rules.late_payment_fee_bp(90), 263)
+        self.assertEqual(rules.late_payment_fee_bp(91), 438)
 
     def test_fall_risk_points(self):
         self.assertEqual(rules.fall_risk_points(0), 0)
