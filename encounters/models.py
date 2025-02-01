@@ -7,6 +7,7 @@ class Encounter(models.Model):
     status = models.CharField(max_length=16, default="open")
     note = models.CharField(max_length=80, blank=True, default="")
     region = models.CharField(max_length=8, blank=True, default="")
+    region = models.CharField(max_length=8, blank=True, default="")
 
     def __str__(self):
         return self.ref
