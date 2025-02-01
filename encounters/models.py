@@ -3,7 +3,7 @@ from django.db import models
 
 class Encounter(models.Model):
     ref = models.CharField(max_length=24, unique=True)
-    amount_cents = models.BigIntegerField(default=0)
+    amount = models.BigIntegerField(default=0)
     priority = models.IntegerField(default=0)
     priority = models.IntegerField(default=0)
     status = models.CharField(max_length=16, default="open")

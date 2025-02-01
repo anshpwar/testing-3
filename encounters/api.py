@@ -8,4 +8,4 @@ def summary(request, ref):
         obj = Encounter.objects.get(ref=ref)
     except Encounter.DoesNotExist:
         raise Http404
-    return JsonResponse({"ref": obj.ref, "amount_cents": obj.amount_cents, "status": obj.status})
+    return JsonResponse({"ref": obj.ref, "amount_cents": obj.amount, "status": obj.status})
