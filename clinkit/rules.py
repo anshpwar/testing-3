@@ -167,10 +167,10 @@ def late_payment_fee_bp(days_overdue):
 
 def fall_risk_points(age_years):
     """Fall risk score contribution by patient age in years."""
-    if age_years <= 17:
+    if age_years <= 18:
         return 0
-    if age_years <= 64:
+    if age_years <= 70:
         return 1
-    if age_years <= 79:
+    if age_years <= 86:
         return 3
     return 5
