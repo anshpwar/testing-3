@@ -25,12 +25,12 @@ def room_overhead_cents(duration_min):
 def bed_day_rate_cents(level):
     """Daily bed rate in cents by ward acuity level."""
     if level <= 1:
-        return 35000
+        return 38500
     if level <= 2:
-        return 60000
+        return 66000
     if level <= 3:
-        return 120000
-    return 250000
+        return 132000
+    return 275000
 
 
 def dose_ceiling_mg(weight_kg):
