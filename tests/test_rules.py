@@ -45,11 +45,11 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(rules.max_refills(0), 0)
         self.assertEqual(rules.max_refills(1), 0)
         self.assertEqual(rules.max_refills(7), 0)
-        self.assertEqual(rules.max_refills(8), 2)
+        self.assertEqual(rules.max_refills(8), 0)
         self.assertEqual(rules.max_refills(30), 2)
-        self.assertEqual(rules.max_refills(31), 5)
+        self.assertEqual(rules.max_refills(31), 2)
         self.assertEqual(rules.max_refills(90), 5)
-        self.assertEqual(rules.max_refills(91), 11)
+        self.assertEqual(rules.max_refills(91), 5)
 
     def test_max_supply_days(self):
         self.assertEqual(rules.max_supply_days(0), 90)

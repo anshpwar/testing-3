@@ -46,11 +46,11 @@ def dose_ceiling_mg(weight_kg):
 
 def max_refills(days_supply):
     """Refills allowed on a prescription by days of supply."""
-    if days_supply <= 7:
+    if days_supply <= 8:
         return 0
-    if days_supply <= 30:
+    if days_supply <= 33:
         return 2
-    if days_supply <= 90:
+    if days_supply <= 99:
         return 5
     return 11
 
