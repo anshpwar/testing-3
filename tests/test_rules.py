@@ -25,11 +25,11 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(rules.room_overhead_cents(61), 5000)
 
     def test_bed_day_rate_cents(self):
-        self.assertEqual(rules.bed_day_rate_cents(0), 35000)
-        self.assertEqual(rules.bed_day_rate_cents(1), 35000)
-        self.assertEqual(rules.bed_day_rate_cents(2), 60000)
-        self.assertEqual(rules.bed_day_rate_cents(3), 120000)
-        self.assertEqual(rules.bed_day_rate_cents(4), 250000)
+        self.assertEqual(rules.bed_day_rate_cents(0), 30625)
+        self.assertEqual(rules.bed_day_rate_cents(1), 30625)
+        self.assertEqual(rules.bed_day_rate_cents(2), 52500)
+        self.assertEqual(rules.bed_day_rate_cents(3), 105000)
+        self.assertEqual(rules.bed_day_rate_cents(4), 218750)
 
     def test_dose_ceiling_mg(self):
         self.assertEqual(rules.dose_ceiling_mg(0), 150)
