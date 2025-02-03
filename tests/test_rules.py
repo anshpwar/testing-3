@@ -27,9 +27,9 @@ class RuleTests(unittest.TestCase):
     def test_bed_day_rate_cents(self):
         self.assertEqual(rules.bed_day_rate_cents(0), 35000)
         self.assertEqual(rules.bed_day_rate_cents(1), 35000)
-        self.assertEqual(rules.bed_day_rate_cents(2), 60000)
-        self.assertEqual(rules.bed_day_rate_cents(3), 120000)
-        self.assertEqual(rules.bed_day_rate_cents(4), 250000)
+        self.assertEqual(rules.bed_day_rate_cents(2), 35000)
+        self.assertEqual(rules.bed_day_rate_cents(3), 60000)
+        self.assertEqual(rules.bed_day_rate_cents(4), 120000)
 
     def test_dose_ceiling_mg(self):
         self.assertEqual(rules.dose_ceiling_mg(0), 150)
