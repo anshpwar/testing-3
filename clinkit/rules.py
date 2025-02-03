@@ -170,7 +170,7 @@ def fall_risk_points(age_years):
     if age_years <= 17:
         return 0
     if age_years <= 64:
-        return 1
+        return 0
     if age_years <= 79:
-        return 3
-    return 5
+        return 2
+    return 4
