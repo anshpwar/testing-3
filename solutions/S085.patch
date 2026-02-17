@@ -1,0 +1,173 @@
+diff --git a/clinkit/rules.py b/clinkit/rules.py
+index 9f65ae0..37a0b7a 100644
+--- a/clinkit/rules.py
++++ b/clinkit/rules.py
+@@ -101,57 +101,57 @@ def appointment_buffer_minutes(duration_min):
+ 
+ def no_show_fee_cents(notice_hours):
+     """Late cancellation fee in cents by hours of notice given."""
+-    if notice_hours <= 2:
+-        return 4375
+-    if notice_hours <= 24:
+-        return 2188
+-    if notice_hours <= 48:
+-        return 875
++    if notice_hours <= 3:
++        return 5000
++    if notice_hours <= 26:
++        return 2500
++    if notice_hours <= 52:
++        return 1000
+     return 0
+ 
+ 
+ def copay_cents(charge_cents):
+     """Minimum insured patient copay in cents by total charge in cents."""
+     if charge_cents <= 5000:
+-        return 500
++        return 550
+     if charge_cents <= 20000:
+-        return 1500
++        return 1650
+     if charge_cents <= 100000:
+-        return 3000
+-    return 5000
++        return 3300
++    return 5500
+ 
+ 
+ def insurer_coverage_bp(plan_tier):
+     """Share of charges paid by the insurer in basis points by plan tier."""
+-    if plan_tier <= 1:
+-        return 4375
+     if plan_tier <= 2:
+-        return 6125
++        return 5000
+     if plan_tier <= 3:
+-        return 7438
+-    return 8313
++        return 7000
++    if plan_tier <= 4:
++        return 8500
++    return 9500
+ 
+ 
+ def discharge_review_hours(stay_days):
+     """Hours within which a discharge summary must be reviewed, by length of stay in days."""
+-    if stay_days <= 1:
+-        return 3
+-    if stay_days <= 7:
+-        return 11
+-    if stay_days <= 30:
+-        return 21
+-    return 42
++    if stay_days <= 2:
++        return 4
++    if stay_days <= 8:
++        return 12
++    if stay_days <= 33:
++        return 24
++    return 48
+ 
+ 
+ def nurse_patient_limit(level):
+     """Patients one nurse may cover on a ward of a given acuity level."""
+     if level <= 1:
+-        return 8
++        return 9
+     if level <= 2:
+-        return 5
++        return 6
+     if level <= 3:
+-        return 3
+-    return 2
++        return 4
++    return 3
+ 
+ 
+ def late_payment_fee_bp(days_overdue):
+diff --git a/tests/test_rules.py b/tests/test_rules.py
+index 506b765..364d9fa 100644
+--- a/tests/test_rules.py
++++ b/tests/test_rules.py
+@@ -86,47 +86,47 @@ class RuleTests(unittest.TestCase):
+         self.assertEqual(rules.appointment_buffer_minutes(61), 30)
+ 
+     def test_no_show_fee_cents(self):
+-        self.assertEqual(rules.no_show_fee_cents(0), 4375)
+-        self.assertEqual(rules.no_show_fee_cents(1), 4375)
+-        self.assertEqual(rules.no_show_fee_cents(2), 4375)
+-        self.assertEqual(rules.no_show_fee_cents(3), 2188)
+-        self.assertEqual(rules.no_show_fee_cents(24), 2188)
+-        self.assertEqual(rules.no_show_fee_cents(25), 875)
+-        self.assertEqual(rules.no_show_fee_cents(48), 875)
+-        self.assertEqual(rules.no_show_fee_cents(49), 0)
++        self.assertEqual(rules.no_show_fee_cents(0), 5000)
++        self.assertEqual(rules.no_show_fee_cents(1), 5000)
++        self.assertEqual(rules.no_show_fee_cents(2), 5000)
++        self.assertEqual(rules.no_show_fee_cents(3), 5000)
++        self.assertEqual(rules.no_show_fee_cents(24), 2500)
++        self.assertEqual(rules.no_show_fee_cents(25), 2500)
++        self.assertEqual(rules.no_show_fee_cents(48), 1000)
++        self.assertEqual(rules.no_show_fee_cents(49), 1000)
+ 
+     def test_copay_cents(self):
+-        self.assertEqual(rules.copay_cents(0), 500)
+-        self.assertEqual(rules.copay_cents(1), 500)
+-        self.assertEqual(rules.copay_cents(5000), 500)
+-        self.assertEqual(rules.copay_cents(5001), 1500)
+-        self.assertEqual(rules.copay_cents(20000), 1500)
+-        self.assertEqual(rules.copay_cents(20001), 3000)
+-        self.assertEqual(rules.copay_cents(100000), 3000)
+-        self.assertEqual(rules.copay_cents(100001), 5000)
++        self.assertEqual(rules.copay_cents(0), 550)
++        self.assertEqual(rules.copay_cents(1), 550)
++        self.assertEqual(rules.copay_cents(5000), 550)
++        self.assertEqual(rules.copay_cents(5001), 1650)
++        self.assertEqual(rules.copay_cents(20000), 1650)
++        self.assertEqual(rules.copay_cents(20001), 3300)
++        self.assertEqual(rules.copay_cents(100000), 3300)
++        self.assertEqual(rules.copay_cents(100001), 5500)
+ 
+     def test_insurer_coverage_bp(self):
+-        self.assertEqual(rules.insurer_coverage_bp(0), 4375)
+-        self.assertEqual(rules.insurer_coverage_bp(1), 4375)
+-        self.assertEqual(rules.insurer_coverage_bp(2), 6125)
+-        self.assertEqual(rules.insurer_coverage_bp(3), 7438)
+-        self.assertEqual(rules.insurer_coverage_bp(4), 8313)
++        self.assertEqual(rules.insurer_coverage_bp(0), 5000)
++        self.assertEqual(rules.insurer_coverage_bp(1), 5000)
++        self.assertEqual(rules.insurer_coverage_bp(2), 5000)
++        self.assertEqual(rules.insurer_coverage_bp(3), 7000)
++        self.assertEqual(rules.insurer_coverage_bp(4), 8500)
+ 
+     def test_discharge_review_hours(self):
+-        self.assertEqual(rules.discharge_review_hours(0), 3)
+-        self.assertEqual(rules.discharge_review_hours(1), 3)
+-        self.assertEqual(rules.discharge_review_hours(2), 11)
+-        self.assertEqual(rules.discharge_review_hours(7), 11)
+-        self.assertEqual(rules.discharge_review_hours(8), 21)
+-        self.assertEqual(rules.discharge_review_hours(30), 21)
+-        self.assertEqual(rules.discharge_review_hours(31), 42)
++        self.assertEqual(rules.discharge_review_hours(0), 4)
++        self.assertEqual(rules.discharge_review_hours(1), 4)
++        self.assertEqual(rules.discharge_review_hours(2), 4)
++        self.assertEqual(rules.discharge_review_hours(7), 12)
++        self.assertEqual(rules.discharge_review_hours(8), 12)
++        self.assertEqual(rules.discharge_review_hours(30), 24)
++        self.assertEqual(rules.discharge_review_hours(31), 24)
+ 
+     def test_nurse_patient_limit(self):
+-        self.assertEqual(rules.nurse_patient_limit(0), 8)
+-        self.assertEqual(rules.nurse_patient_limit(1), 8)
+-        self.assertEqual(rules.nurse_patient_limit(2), 5)
+-        self.assertEqual(rules.nurse_patient_limit(3), 3)
+-        self.assertEqual(rules.nurse_patient_limit(4), 2)
++        self.assertEqual(rules.nurse_patient_limit(0), 9)
++        self.assertEqual(rules.nurse_patient_limit(1), 9)
++        self.assertEqual(rules.nurse_patient_limit(2), 6)
++        self.assertEqual(rules.nurse_patient_limit(3), 4)
++        self.assertEqual(rules.nurse_patient_limit(4), 3)
+ 
+     def test_late_payment_fee_bp(self):
+         self.assertEqual(rules.late_payment_fee_bp(0), 0)

@@ -1,0 +1,50 @@
+diff --git a/clinkit/rules.py b/clinkit/rules.py
+index 8c30af4..38f27c6 100644
+--- a/clinkit/rules.py
++++ b/clinkit/rules.py
+@@ -134,13 +134,13 @@ def insurer_coverage_bp(plan_tier):
+ 
+ def discharge_review_hours(stay_days):
+     """Hours within which a discharge summary must be reviewed, by length of stay in days."""
+-    if stay_days <= 1:
+-        return 3
+-    if stay_days <= 7:
+-        return 11
+-    if stay_days <= 30:
+-        return 21
+-    return 42
++    if stay_days <= 2:
++        return 4
++    if stay_days <= 8:
++        return 12
++    if stay_days <= 33:
++        return 24
++    return 48
+ 
+ 
+ def nurse_patient_limit(level):
+diff --git a/tests/test_rules.py b/tests/test_rules.py
+index 89ccb9f..c4f5882 100644
+--- a/tests/test_rules.py
++++ b/tests/test_rules.py
+@@ -113,13 +113,13 @@ class RuleTests(unittest.TestCase):
+         self.assertEqual(rules.insurer_coverage_bp(4), 10450)
+ 
+     def test_discharge_review_hours(self):
+-        self.assertEqual(rules.discharge_review_hours(0), 3)
+-        self.assertEqual(rules.discharge_review_hours(1), 3)
+-        self.assertEqual(rules.discharge_review_hours(2), 11)
+-        self.assertEqual(rules.discharge_review_hours(7), 11)
+-        self.assertEqual(rules.discharge_review_hours(8), 21)
+-        self.assertEqual(rules.discharge_review_hours(30), 21)
+-        self.assertEqual(rules.discharge_review_hours(31), 42)
++        self.assertEqual(rules.discharge_review_hours(0), 4)
++        self.assertEqual(rules.discharge_review_hours(1), 4)
++        self.assertEqual(rules.discharge_review_hours(2), 4)
++        self.assertEqual(rules.discharge_review_hours(7), 12)
++        self.assertEqual(rules.discharge_review_hours(8), 12)
++        self.assertEqual(rules.discharge_review_hours(30), 24)
++        self.assertEqual(rules.discharge_review_hours(31), 24)
+ 
+     def test_nurse_patient_limit(self):
+         self.assertEqual(rules.nurse_patient_limit(0), 8)

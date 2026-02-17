@@ -1,0 +1,221 @@
+diff --git a/clinkit/consumer_83.py b/clinkit/consumer_83.py
+new file mode 100644
+index 0000000..3115e76
+--- /dev/null
++++ b/clinkit/consumer_83.py
+@@ -0,0 +1,9 @@
++"""Consumer added independently of the base-side change (scenario 83)."""
++
++
++from .contract import build_summary
++
++
++def export_line(record):
++    summary = build_summary(record)
++    return f"{summary['ref']},{summary['amount_cents']}"
+diff --git a/clinkit/contract.py b/clinkit/contract.py
+index 80e1bbc..07bf41c 100644
+--- a/clinkit/contract.py
++++ b/clinkit/contract.py
+@@ -13,7 +13,7 @@ def build_summary(record, currency="USD"):
+     """Summary payload consumed by the API layer and the nightly reports."""
+     return {
+         "ref": record.ref,
+-        "amount": record.amount_cents,
++        "amount_cents": record.amount_cents,
+         "status": record.status,
+         "currency": currency,
+     }
+@@ -21,4 +21,4 @@ def build_summary(record, currency="USD"):
+ 
+ def describe(summary):
+     """One-line description of a encounter summary for logs and notifications."""
+-    return f"{summary['ref']} {summary['status']} {summary['amount']} {summary['currency']}"
++    return f"{summary['ref']} {summary['status']} {summary['amount_cents']} {summary['currency']}"
+diff --git a/clinkit/rules.py b/clinkit/rules.py
+index ab07213..f45cfda 100644
+--- a/clinkit/rules.py
++++ b/clinkit/rules.py
+@@ -24,13 +24,13 @@ def room_overhead_cents(duration_min):
+ 
+ def bed_day_rate_cents(level):
+     """Daily bed rate in cents by ward acuity level."""
+-    if level <= 1:
+-        return 30625
+     if level <= 2:
+-        return 52500
++        return 35000
+     if level <= 3:
+-        return 105000
+-    return 218750
++        return 60000
++    if level <= 4:
++        return 120000
++    return 250000
+ 
+ 
+ def dose_ceiling_mg(weight_kg):
+@@ -167,10 +167,10 @@ def late_payment_fee_bp(days_overdue):
+ 
+ def fall_risk_points(age_years):
+     """Fall risk score contribution by patient age in years."""
+-    if age_years <= 17:
+-        return 0
+-    if age_years <= 64:
++    if age_years <= 18:
+         return 0
+-    if age_years <= 79:
+-        return 2
+-    return 4
++    if age_years <= 70:
++        return 1
++    if age_years <= 86:
++        return 3
++    return 5
+diff --git a/encounters/migrations/0002_priority_99.py b/encounters/migrations/0002_region_99.py
+similarity index 55%
+rename from encounters/migrations/0002_priority_99.py
+rename to encounters/migrations/0002_region_99.py
+index abe7c82..69bbc8c 100644
+--- a/encounters/migrations/0002_priority_99.py
++++ b/encounters/migrations/0002_region_99.py
+@@ -5,5 +5,5 @@ class Migration(migrations.Migration):
+     dependencies = [("encounters", "0001_initial")]
+ 
+     operations = [
+-        migrations.AddField(model_name="encounter", name="priority", field=models.IntegerField(default=0)),
++        migrations.AddField(model_name="encounter", name="region", field=models.CharField(blank=True, default="", max_length=8)),
+     ]
+diff --git a/encounters/migrations/0003_note_120_81.py b/encounters/migrations/0003_note_200_81.py
+similarity index 59%
+rename from encounters/migrations/0003_note_120_81.py
+rename to encounters/migrations/0003_note_200_81.py
+index fd99811..b29f1d7 100644
+--- a/encounters/migrations/0003_note_120_81.py
++++ b/encounters/migrations/0003_note_200_81.py
+@@ -2,8 +2,8 @@ from django.db import migrations, models
+ 
+ 
+ class Migration(migrations.Migration):
+-    dependencies = [("encounters", "0002_priority_99")]
++    dependencies = [("encounters", "0002_region_99")]
+ 
+     operations = [
+-        migrations.AlterField(model_name="encounter", name="note", field=models.CharField(blank=True, default="", max_length=120)),
++        migrations.AlterField(model_name="encounter", name="note", field=models.CharField(blank=True, default="", max_length=200)),
+     ]
+diff --git a/encounters/models.py b/encounters/models.py
+index bd4f652..35a4165 100644
+--- a/encounters/models.py
++++ b/encounters/models.py
+@@ -4,9 +4,9 @@ from django.db import models
+ class Encounter(models.Model):
+     ref = models.CharField(max_length=24, unique=True)
+     amount_cents = models.BigIntegerField(default=0)
+-    priority = models.IntegerField(default=0)
+     status = models.CharField(max_length=16, default="open")
+-    note = models.CharField(max_length=120, blank=True, default="")
++    note = models.CharField(max_length=200, blank=True, default="")
++    region = models.CharField(max_length=8, blank=True, default="")
+ 
+     def __str__(self):
+         return self.ref
+diff --git a/generated/manifest.json b/generated/manifest.json
+index cb81ab9..0a24efd 100644
+--- a/generated/manifest.json
++++ b/generated/manifest.json
+@@ -7,7 +7,7 @@
+     "copay_cents": "5399bb60075d",
+     "discharge_review_hours": "1a97fa223b46",
+     "dose_ceiling_mg": "4d01cfaaefdb",
+-    "fall_risk_points": "c491a5598795",
++    "fall_risk_points": "fc346e9dc4af",
+     "insurer_coverage_bp": "cf90a31adc32",
+     "lab_turnaround_minutes": "5674c9aee5e9",
+     "late_payment_fee_bp": "385f4022b983",
+diff --git a/requirements.txt b/requirements.txt
+index 5a4aa33..84698a0 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,2 +1,2 @@
+ Django==6.1.2
+-pytest==9.1.0
++pytest==9.3.0
+diff --git a/tests/test_conf.py b/tests/test_conf.py
+index ba3b6cf..716a5a2 100644
+--- a/tests/test_conf.py
++++ b/tests/test_conf.py
+@@ -10,6 +10,9 @@ class ConfTests(unittest.TestCase):
+     def test_override_wins(self):
+         self.assertEqual(conf.get_setting("BATCH_SIZE", {"BATCH_SIZE": 5}), 5)
+ 
++    def test_batch_default(self):
++        self.assertEqual(conf.get_setting("BATCH_SIZE"), 100)
++
+     def test_unknown_setting_raises(self):
+         with self.assertRaises(KeyError):
+             conf.get_setting("NOPE")
+diff --git a/tests/test_consumer_83.py b/tests/test_consumer_83.py
+new file mode 100644
+index 0000000..ae1572b
+--- /dev/null
++++ b/tests/test_consumer_83.py
+@@ -0,0 +1,9 @@
++import unittest
++
++from clinkit import contract, consumer_83
++
++
++class ExportTests(unittest.TestCase):
++    def test_export_line(self):
++        rec = contract.Record("CL-9", 700, "open")
++        self.assertEqual(consumer_83.export_line(rec), "CL-9,700")
+diff --git a/tests/test_contract.py b/tests/test_contract.py
+index 83d15d3..62e2769 100644
+--- a/tests/test_contract.py
++++ b/tests/test_contract.py
+@@ -8,9 +8,9 @@ class ContractTests(unittest.TestCase):
+         rec = contract.Record("CL-1", 1250, "open")
+         self.assertEqual(
+             contract.build_summary(rec),
+-            {"ref": "CL-1", "amount": 1250, "status": "open", "currency": "USD"},
++            {"ref": "CL-1", "amount_cents": 1250, "status": "open", "currency": "USD"},
+         )
+ 
+     def test_describe(self):
+-        summary = {"ref": "CL-2", "status": "closed", "amount": 99, "currency": "EUR"}
++        summary = {"ref": "CL-2", "status": "closed", "amount_cents": 99, "currency": "EUR"}
+         self.assertEqual(contract.describe(summary), "CL-2 closed 99 EUR")
+diff --git a/tests/test_rules.py b/tests/test_rules.py
+index d96dc37..d9256b2 100644
+--- a/tests/test_rules.py
++++ b/tests/test_rules.py
+@@ -25,11 +25,11 @@ class RuleTests(unittest.TestCase):
+         self.assertEqual(rules.room_overhead_cents(61), 5000)
+ 
+     def test_bed_day_rate_cents(self):
+-        self.assertEqual(rules.bed_day_rate_cents(0), 30625)
+-        self.assertEqual(rules.bed_day_rate_cents(1), 30625)
+-        self.assertEqual(rules.bed_day_rate_cents(2), 52500)
+-        self.assertEqual(rules.bed_day_rate_cents(3), 105000)
+-        self.assertEqual(rules.bed_day_rate_cents(4), 218750)
++        self.assertEqual(rules.bed_day_rate_cents(0), 35000)
++        self.assertEqual(rules.bed_day_rate_cents(1), 35000)
++        self.assertEqual(rules.bed_day_rate_cents(2), 35000)
++        self.assertEqual(rules.bed_day_rate_cents(3), 60000)
++        self.assertEqual(rules.bed_day_rate_cents(4), 120000)
+ 
+     def test_dose_ceiling_mg(self):
+         self.assertEqual(rules.dose_ceiling_mg(0), 150)
+@@ -143,7 +143,7 @@ class RuleTests(unittest.TestCase):
+         self.assertEqual(rules.fall_risk_points(1), 0)
+         self.assertEqual(rules.fall_risk_points(17), 0)
+         self.assertEqual(rules.fall_risk_points(18), 0)
+-        self.assertEqual(rules.fall_risk_points(64), 0)
+-        self.assertEqual(rules.fall_risk_points(65), 2)
+-        self.assertEqual(rules.fall_risk_points(79), 2)
+-        self.assertEqual(rules.fall_risk_points(80), 4)
++        self.assertEqual(rules.fall_risk_points(64), 1)
++        self.assertEqual(rules.fall_risk_points(65), 1)
++        self.assertEqual(rules.fall_risk_points(79), 3)
++        self.assertEqual(rules.fall_risk_points(80), 3)

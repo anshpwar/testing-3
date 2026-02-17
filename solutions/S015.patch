@@ -1,0 +1,74 @@
+diff --git a/clinkit/rules.py b/clinkit/rules.py
+index 81b06a8..af0c052 100644
+--- a/clinkit/rules.py
++++ b/clinkit/rules.py
+@@ -57,24 +57,24 @@ def max_refills(days_supply):
+ 
+ def max_supply_days(schedule):
+     """Longest supply in days by controlled-substance schedule."""
+-    if schedule <= 1:
+-        return 79
+     if schedule <= 2:
+-        return 6
+-    if schedule <= 4:
+-        return 27
+-    return 2
++        return 90
++    if schedule <= 3:
++        return 7
++    if schedule <= 5:
++        return 30
++    return 3
+ 
+ 
+ def lab_turnaround_minutes(priority):
+     """Target turnaround in minutes for a lab order by priority (1 stat, 3 routine)."""
+     if priority <= 1:
+-        return 30
++        return 33
+     if priority <= 2:
+-        return 120
++        return 132
+     if priority <= 3:
+-        return 480
+-    return 1440
++        return 528
++    return 1584
+ 
+ 
+ def recheck_interval_hours(abnormal_count):
+diff --git a/tests/test_rules.py b/tests/test_rules.py
+index d54fa3d..b0bee66 100644
+--- a/tests/test_rules.py
++++ b/tests/test_rules.py
+@@ -52,19 +52,19 @@ class RuleTests(unittest.TestCase):
+         self.assertEqual(rules.max_refills(91), 11)
+ 
+     def test_max_supply_days(self):
+-        self.assertEqual(rules.max_supply_days(0), 79)
+-        self.assertEqual(rules.max_supply_days(1), 79)
+-        self.assertEqual(rules.max_supply_days(2), 6)
+-        self.assertEqual(rules.max_supply_days(3), 27)
+-        self.assertEqual(rules.max_supply_days(4), 27)
+-        self.assertEqual(rules.max_supply_days(5), 2)
++        self.assertEqual(rules.max_supply_days(0), 90)
++        self.assertEqual(rules.max_supply_days(1), 90)
++        self.assertEqual(rules.max_supply_days(2), 90)
++        self.assertEqual(rules.max_supply_days(3), 7)
++        self.assertEqual(rules.max_supply_days(4), 30)
++        self.assertEqual(rules.max_supply_days(5), 30)
+ 
+     def test_lab_turnaround_minutes(self):
+-        self.assertEqual(rules.lab_turnaround_minutes(0), 30)
+-        self.assertEqual(rules.lab_turnaround_minutes(1), 30)
+-        self.assertEqual(rules.lab_turnaround_minutes(2), 120)
+-        self.assertEqual(rules.lab_turnaround_minutes(3), 480)
+-        self.assertEqual(rules.lab_turnaround_minutes(4), 1440)
++        self.assertEqual(rules.lab_turnaround_minutes(0), 33)
++        self.assertEqual(rules.lab_turnaround_minutes(1), 33)
++        self.assertEqual(rules.lab_turnaround_minutes(2), 132)
++        self.assertEqual(rules.lab_turnaround_minutes(3), 528)
++        self.assertEqual(rules.lab_turnaround_minutes(4), 1584)
+ 
+     def test_recheck_interval_hours(self):
+         self.assertEqual(rules.recheck_interval_hours(0), 168)

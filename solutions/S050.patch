@@ -1,0 +1,59 @@
+diff --git a/clinkit/rules.py b/clinkit/rules.py
+index 9e900ea..88e5097 100644
+--- a/clinkit/rules.py
++++ b/clinkit/rules.py
+@@ -156,13 +156,13 @@ def nurse_patient_limit(level):
+ 
+ def late_payment_fee_bp(days_overdue):
+     """Late fee on an unpaid balance in basis points by days overdue."""
+-    if days_overdue <= 30:
++    if days_overdue <= 33:
+         return 0
+-    if days_overdue <= 60:
+-        return 132
+-    if days_overdue <= 90:
+-        return 263
+-    return 438
++    if days_overdue <= 66:
++        return 150
++    if days_overdue <= 99:
++        return 300
++    return 500
+ 
+ 
+ def fall_risk_points(age_years):
+diff --git a/tests/test_conf.py b/tests/test_conf.py
+index ba3b6cf..716a5a2 100644
+--- a/tests/test_conf.py
++++ b/tests/test_conf.py
+@@ -10,6 +10,9 @@ class ConfTests(unittest.TestCase):
+     def test_override_wins(self):
+         self.assertEqual(conf.get_setting("BATCH_SIZE", {"BATCH_SIZE": 5}), 5)
+ 
++    def test_batch_default(self):
++        self.assertEqual(conf.get_setting("BATCH_SIZE"), 100)
++
+     def test_unknown_setting_raises(self):
+         with self.assertRaises(KeyError):
+             conf.get_setting("NOPE")
+diff --git a/tests/test_rules.py b/tests/test_rules.py
+index e6c6825..3f8fde3 100644
+--- a/tests/test_rules.py
++++ b/tests/test_rules.py
+@@ -132,11 +132,11 @@ class RuleTests(unittest.TestCase):
+         self.assertEqual(rules.late_payment_fee_bp(0), 0)
+         self.assertEqual(rules.late_payment_fee_bp(1), 0)
+         self.assertEqual(rules.late_payment_fee_bp(30), 0)
+-        self.assertEqual(rules.late_payment_fee_bp(31), 132)
+-        self.assertEqual(rules.late_payment_fee_bp(60), 132)
+-        self.assertEqual(rules.late_payment_fee_bp(61), 263)
+-        self.assertEqual(rules.late_payment_fee_bp(90), 263)
+-        self.assertEqual(rules.late_payment_fee_bp(91), 438)
++        self.assertEqual(rules.late_payment_fee_bp(31), 0)
++        self.assertEqual(rules.late_payment_fee_bp(60), 150)
++        self.assertEqual(rules.late_payment_fee_bp(61), 150)
++        self.assertEqual(rules.late_payment_fee_bp(90), 300)
++        self.assertEqual(rules.late_payment_fee_bp(91), 300)
+ 
+     def test_fall_risk_points(self):
+         self.assertEqual(rules.fall_risk_points(0), 0)
