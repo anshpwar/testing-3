@@ -1,0 +1,56 @@
+scenario_id: S041
+repo_id: testing-3
+title: A passing change is deployed and then rolled back
+difficulty: 2
+primary_catalog_id: 41
+catalog_ids:
+- 41
+expected_git_outcome: EVIDENCE_ONLY
+merge_pair:
+  base: scenario/S041/base
+  target: scenario/S041/target
+  all_pairs:
+  - - scenario/S041/base
+    - scenario/S041/target
+  additional_sides: {}
+fork_commit: '@S041.F'
+expected_conflicted_files: []
+validation_method: merge
+clone_profile: full
+branches:
+- scenario/S041/base
+- scenario/S041/target
+original_commits:
+- '@S041.t1'
+derived_commits:
+- '@S041.t2'
+change_relationships:
+- a: '@S041.t1'
+  b: '@S041.t2'
+  relation: reverted
+files:
+- clinkit/rules.py
+- tests/test_rules.py
+regions:
+- file: clinkit/rules.py
+  function: no_show_fee_cents
+testing_evidence: t1 PASSED in prod
+deployment_evidence: t1 deployed then rolled back by t2
+metadata_availability: full
+known_uncertainty: none
+expected_warnings:
+- change was rolled back; tested != currently deployed
+safe_resolution_constraints: []
+human_review_required: false
+assertions:
+- type: note
+  ref: deploy
+  commit: '@S041.t2'
+  expect: present
+  fields:
+    status: ROLLED_BACK
+id: '41'
+sub_entries: []
+patch_ids:
+  '@S041.t1': 5654be8601443485be4972593d41a78ed03da442
+  '@S041.t2': fab2bbd6a2852bf8e389fa40bb2b0fb6b9e878de

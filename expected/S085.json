@@ -1,0 +1,208 @@
+{
+  "scenario_id": "S085",
+  "repo_id": "testing-3",
+  "title": "Evidence notes are truncated or carry the wrong field types",
+  "difficulty": 4,
+  "primary_catalog_id": 85,
+  "catalog_ids": [
+    85,
+    88,
+    27
+  ],
+  "expected_git_outcome": "CONFLICT",
+  "merge_pair": {
+    "base": "scenario/S085/base",
+    "target": "scenario/S085/target",
+    "all_pairs": [
+      [
+        "scenario/S085/base",
+        "scenario/S085/target"
+      ]
+    ],
+    "additional_sides": {}
+  },
+  "fork_commit": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+  "expected_conflicted_files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py"
+  ],
+  "validation_method": "merge",
+  "clone_profile": "full",
+  "branches": [
+    "scenario/S085/base",
+    "scenario/S085/target"
+  ],
+  "original_commits": [
+    "4f9ee1daeac8d0841d3faf487baa2d5cdb9548db"
+  ],
+  "derived_commits": [
+    "f32270147a008a8bc1ae106c1ce75d4262be48e5"
+  ],
+  "change_relationships": [
+    {
+      "a": "4f9ee1daeac8d0841d3faf487baa2d5cdb9548db",
+      "b": "f32270147a008a8bc1ae106c1ce75d4262be48e5",
+      "relation": "unrelated"
+    }
+  ],
+  "files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py"
+  ],
+  "regions": [
+    {
+      "file": "clinkit/rules.py",
+      "function": "no_show_fee_cents"
+    }
+  ],
+  "testing_evidence": "unparseable",
+  "deployment_evidence": "none",
+  "metadata_availability": "t1 note is truncated JSON; t2 note parses but every field has the wrong type",
+  "known_uncertainty": "none",
+  "expected_warnings": [
+    "malformed evidence must be reported as UNKNOWN, never PASSED"
+  ],
+  "safe_resolution_constraints": [],
+  "human_review_required": true,
+  "assertions": [
+    {
+      "type": "note_malformed",
+      "ref": "ci",
+      "commit": "4f9ee1daeac8d0841d3faf487baa2d5cdb9548db"
+    },
+    {
+      "type": "note_wrong_types",
+      "ref": "ci",
+      "commit": "f32270147a008a8bc1ae106c1ce75d4262be48e5"
+    }
+  ],
+  "id": "85",
+  "sub_entries": [
+    {
+      "original_commits": [
+        "dd5a1791bed008bcd0a603aae39daded092e8b0b"
+      ],
+      "derived_commits": [
+        "08004154beccde178124f34255c893910ba32c78"
+      ],
+      "change_relationships": [
+        {
+          "a": "dd5a1791bed008bcd0a603aae39daded092e8b0b",
+          "b": "08004154beccde178124f34255c893910ba32c78",
+          "relation": "unrelated"
+        }
+      ],
+      "files": [
+        "clinkit/rules.py",
+        "tests/test_rules.py"
+      ],
+      "regions": [
+        {
+          "file": "clinkit/rules.py",
+          "function": "insurer_coverage_bp"
+        }
+      ],
+      "testing_evidence": "t1 PASSED from an unsigned anonymous upload; b1 PASSED from the trusted runner",
+      "deployment_evidence": "none",
+      "metadata_availability": "t1 evidence source unverified",
+      "known_uncertainty": "none",
+      "expected_warnings": [
+        "unverified evidence must not outweigh trusted evidence"
+      ],
+      "safe_resolution_constraints": [],
+      "human_review_required": true,
+      "assertions": [
+        {
+          "type": "note",
+          "ref": "ci",
+          "commit": "dd5a1791bed008bcd0a603aae39daded092e8b0b",
+          "expect": "present",
+          "fields": {
+            "source": "anonymous-upload",
+            "signature": null
+          }
+        },
+        {
+          "type": "note",
+          "ref": "ci",
+          "commit": "08004154beccde178124f34255c893910ba32c78",
+          "expect": "present",
+          "fields": {
+            "source": "fixture-ci"
+          }
+        }
+      ],
+      "id": "85.a",
+      "catalog_id": 88
+    },
+    {
+      "original_commits": [
+        "0ad2d9ec6d2532cadca196b9f29f4277281b9f2f"
+      ],
+      "derived_commits": [
+        "519de091b07f5d0aa43f32b296dfed2798acefaa"
+      ],
+      "change_relationships": [
+        {
+          "a": "0ad2d9ec6d2532cadca196b9f29f4277281b9f2f",
+          "b": "519de091b07f5d0aa43f32b296dfed2798acefaa",
+          "relation": "unrelated"
+        }
+      ],
+      "files": [
+        "clinkit/rules.py",
+        "tests/test_rules.py"
+      ],
+      "regions": [
+        {
+          "file": "clinkit/rules.py",
+          "function": "discharge_review_hours"
+        }
+      ],
+      "testing_evidence": "record stored on t2 describes t1; t1 itself has no record",
+      "deployment_evidence": "none",
+      "metadata_availability": "misattached record",
+      "known_uncertainty": "none",
+      "expected_warnings": [
+        "note attached to a commit whose subject_commit names another commit"
+      ],
+      "safe_resolution_constraints": [],
+      "human_review_required": false,
+      "assertions": [
+        {
+          "type": "note_subject_mismatch",
+          "ref": "ci",
+          "commit": "519de091b07f5d0aa43f32b296dfed2798acefaa",
+          "subject": "0ad2d9ec6d2532cadca196b9f29f4277281b9f2f"
+        },
+        {
+          "type": "note",
+          "ref": "ci",
+          "commit": "0ad2d9ec6d2532cadca196b9f29f4277281b9f2f",
+          "expect": "absent"
+        }
+      ],
+      "id": "85.b",
+      "catalog_id": 27
+    }
+  ],
+  "patch_ids": {
+    "@S085.t1": "5654be8601443485be4972593d41a78ed03da442",
+    "@S085.t2": "ff5d00d65096fcce82e67588c1c2e65d7bec9a04",
+    "@S085.c88_t1": "77c7dd263c76412ba4ad75530d1b5bc0c12ff21b",
+    "@S085.c88_b1": "e2d8bb4b1e9759657d4336737c8cee167643965b",
+    "@S085.c27_t1": "0f27e9b6186be6f7f2bafcbf5fe14ac5f875a000",
+    "@S085.c27_t2": "a8afa49089fd8d8669e15d20985497e960eb130c"
+  },
+  "commit_labels": {
+    "S085.F": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+    "S085.b1": "3d8221a8372448465c494f8d88e6986f4f6833e4",
+    "S085.c27_b1": "ea78374ac981ea57b2c09cb5d555514f5f37240c",
+    "S085.c27_t1": "0ad2d9ec6d2532cadca196b9f29f4277281b9f2f",
+    "S085.c27_t2": "519de091b07f5d0aa43f32b296dfed2798acefaa",
+    "S085.c88_b1": "08004154beccde178124f34255c893910ba32c78",
+    "S085.c88_t1": "dd5a1791bed008bcd0a603aae39daded092e8b0b",
+    "S085.t1": "4f9ee1daeac8d0841d3faf487baa2d5cdb9548db",
+    "S085.t2": "f32270147a008a8bc1ae106c1ce75d4262be48e5"
+  }
+}

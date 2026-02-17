@@ -1,0 +1,356 @@
+{
+  "scenario_id": "S095",
+  "repo_id": "testing-3",
+  "title": "A generated manifest is edited on both branches",
+  "difficulty": 5,
+  "primary_catalog_id": 95,
+  "catalog_ids": [
+    95,
+    99,
+    81,
+    75,
+    83,
+    25
+  ],
+  "expected_git_outcome": "CONFLICT",
+  "merge_pair": {
+    "base": "scenario/S095/base",
+    "target": "scenario/S095/target",
+    "all_pairs": [
+      [
+        "scenario/S095/base",
+        "scenario/S095/target"
+      ]
+    ],
+    "additional_sides": {}
+  },
+  "fork_commit": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+  "expected_conflicted_files": [
+    "clinkit/rules.py",
+    "encounters/models.py",
+    "generated/manifest.json",
+    "requirements.txt",
+    "tests/test_rules.py"
+  ],
+  "validation_method": "merge",
+  "clone_profile": "full",
+  "branches": [
+    "scenario/S095/base",
+    "scenario/S095/target"
+  ],
+  "original_commits": [
+    "a932a5a0cad31d5f97760ddb96d854eae80f6233"
+  ],
+  "derived_commits": [
+    "b25cb90f845c47b0aa866881e10473aaf7477cb8"
+  ],
+  "change_relationships": [
+    {
+      "a": "a932a5a0cad31d5f97760ddb96d854eae80f6233",
+      "b": "b25cb90f845c47b0aa866881e10473aaf7477cb8",
+      "relation": "unrelated"
+    }
+  ],
+  "files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py",
+    "generated/manifest.json"
+  ],
+  "regions": [
+    {
+      "file": "clinkit/rules.py",
+      "function": "fall_risk_points"
+    }
+  ],
+  "testing_evidence": "t1 PASSED against the old suite; the suite changed in t2 (digest differs)",
+  "deployment_evidence": "none",
+  "metadata_availability": "full",
+  "known_uncertainty": "none",
+  "expected_warnings": [
+    "generated file conflicts; regenerate after resolving the source"
+  ],
+  "safe_resolution_constraints": [
+    "resolve rules.py first, then rerun python tools/gen_manifest.py"
+  ],
+  "human_review_required": true,
+  "assertions": [
+    {
+      "type": "generated_matches_source",
+      "commit": "a932a5a0cad31d5f97760ddb96d854eae80f6233"
+    },
+    {
+      "type": "generated_matches_source",
+      "commit": "b25cb90f845c47b0aa866881e10473aaf7477cb8"
+    }
+  ],
+  "id": "95",
+  "sub_entries": [
+    {
+      "original_commits": [
+        "7a0ad99ffb1e0057321f343f6ecfbdff2cf911f9"
+      ],
+      "derived_commits": [
+        "733ce6ca1a42d5593668744cf04124a6b06a969a"
+      ],
+      "change_relationships": [
+        {
+          "a": "7a0ad99ffb1e0057321f343f6ecfbdff2cf911f9",
+          "b": "733ce6ca1a42d5593668744cf04124a6b06a969a",
+          "relation": "unrelated"
+        }
+      ],
+      "files": [
+        "encounters/migrations/0002_priority_99.py",
+        "encounters/migrations/0002_region_99.py",
+        "encounters/models.py"
+      ],
+      "regions": [
+        {
+          "file": "encounters/models.py",
+          "model": "Encounter"
+        }
+      ],
+      "testing_evidence": "none",
+      "deployment_evidence": "none",
+      "metadata_availability": "full",
+      "known_uncertainty": "none",
+      "expected_warnings": [
+        "two migrations share a parent; Django reports multiple leaf nodes"
+      ],
+      "safe_resolution_constraints": [
+        "resolve with a merge migration (makemigrations --merge)"
+      ],
+      "human_review_required": false,
+      "assertions": [
+        {
+          "type": "migration_leaves",
+          "app": "encounters",
+          "expect_greater_than": 1
+        },
+        {
+          "type": "merge_then_tests",
+          "expect": "fail",
+          "suites": [
+            "unit"
+          ]
+        }
+      ],
+      "id": "95.a",
+      "catalog_id": 99
+    },
+    {
+      "original_commits": [
+        "30f6b4143bc0d94996699e061e055a60e7594511"
+      ],
+      "derived_commits": [
+        "161076de5e091d1c43ef75df0bec6bfe3b135e38"
+      ],
+      "change_relationships": [
+        {
+          "a": "30f6b4143bc0d94996699e061e055a60e7594511",
+          "b": "161076de5e091d1c43ef75df0bec6bfe3b135e38",
+          "relation": "unrelated"
+        }
+      ],
+      "files": [
+        "encounters/migrations/0003_note_120_81.py",
+        "encounters/migrations/0003_note_200_81.py",
+        "encounters/models.py"
+      ],
+      "regions": [
+        {
+          "file": "encounters/models.py",
+          "model": "Encounter",
+          "field": "note"
+        }
+      ],
+      "testing_evidence": "none",
+      "deployment_evidence": "none",
+      "metadata_availability": "full",
+      "known_uncertainty": "none",
+      "expected_warnings": [
+        "models.py conflicts and the two AlterField migrations also fork the migration graph"
+      ],
+      "safe_resolution_constraints": [
+        "choose one max_length, then add a merge migration"
+      ],
+      "human_review_required": true,
+      "assertions": [
+        {
+          "type": "migration_leaves",
+          "app": "encounters",
+          "expect_greater_than": 1
+        }
+      ],
+      "id": "95.b",
+      "catalog_id": 81
+    },
+    {
+      "original_commits": [
+        "f2f47ba7a78ed1b5a84b44c38c5cad7e79145c10"
+      ],
+      "derived_commits": [
+        "a09b8e82e0f54d9f21add39cf154af822ba1296a"
+      ],
+      "change_relationships": [
+        {
+          "a": "f2f47ba7a78ed1b5a84b44c38c5cad7e79145c10",
+          "b": "a09b8e82e0f54d9f21add39cf154af822ba1296a",
+          "relation": "unrelated"
+        }
+      ],
+      "files": [
+        "requirements.txt"
+      ],
+      "regions": [
+        {
+          "file": "requirements.txt",
+          "line": "pytest"
+        }
+      ],
+      "testing_evidence": "none",
+      "deployment_evidence": "none",
+      "metadata_availability": "full",
+      "known_uncertainty": "none",
+      "expected_warnings": [
+        "two different pins for the same dependency"
+      ],
+      "safe_resolution_constraints": [
+        "pick one pin; do not keep both lines"
+      ],
+      "human_review_required": false,
+      "assertions": [],
+      "id": "95.c",
+      "catalog_id": 75
+    },
+    {
+      "original_commits": [
+        "25fd70d6bee95402db679bc6a389068a1a656feb"
+      ],
+      "derived_commits": [
+        "50d27fb8d3ff1ae59816eae5f6d34bf11f0ce414"
+      ],
+      "change_relationships": [
+        {
+          "a": "25fd70d6bee95402db679bc6a389068a1a656feb",
+          "b": "50d27fb8d3ff1ae59816eae5f6d34bf11f0ce414",
+          "relation": "unrelated"
+        }
+      ],
+      "files": [
+        "clinkit/contract.py",
+        "clinkit/consumer_83.py"
+      ],
+      "regions": [
+        {
+          "file": "clinkit/contract.py",
+          "function": "build_summary"
+        }
+      ],
+      "testing_evidence": "none",
+      "deployment_evidence": "none",
+      "metadata_availability": "full",
+      "known_uncertainty": "none",
+      "expected_warnings": [
+        "clean textual merge; the integrated code fails (new consumer reads the renamed key)"
+      ],
+      "safe_resolution_constraints": [
+        "Git cannot detect this; only the test run can"
+      ],
+      "human_review_required": false,
+      "assertions": [
+        {
+          "type": "merge_then_tests",
+          "expect": "fail",
+          "suites": [
+            "unit"
+          ]
+        }
+      ],
+      "id": "95.d",
+      "catalog_id": 83
+    },
+    {
+      "original_commits": [
+        "55cbb0949082d5e32fd8e2c57ca7949b3e6b4a63"
+      ],
+      "derived_commits": [
+        "2fc6ccc582250b741ab4249d0d85a172a1dc40ab"
+      ],
+      "change_relationships": [
+        {
+          "a": "55cbb0949082d5e32fd8e2c57ca7949b3e6b4a63",
+          "b": "2fc6ccc582250b741ab4249d0d85a172a1dc40ab",
+          "relation": "unrelated"
+        }
+      ],
+      "files": [
+        "clinkit/rules.py",
+        "tests/test_rules.py"
+      ],
+      "regions": [
+        {
+          "file": "clinkit/rules.py",
+          "function": "bed_day_rate_cents"
+        }
+      ],
+      "testing_evidence": "t1 PASSED against the old suite; the suite changed in t2 (digest differs)",
+      "deployment_evidence": "none",
+      "metadata_availability": "full",
+      "known_uncertainty": "none",
+      "expected_warnings": [
+        "recorded suite_digest no longer matches the current test suite"
+      ],
+      "safe_resolution_constraints": [],
+      "human_review_required": false,
+      "assertions": [
+        {
+          "type": "suite_digest_differs",
+          "a": "55cbb0949082d5e32fd8e2c57ca7949b3e6b4a63",
+          "b": "2fc6ccc582250b741ab4249d0d85a172a1dc40ab"
+        },
+        {
+          "type": "note",
+          "ref": "ci",
+          "commit": "55cbb0949082d5e32fd8e2c57ca7949b3e6b4a63",
+          "expect": "present",
+          "fields": {
+            "status": "PASSED"
+          }
+        }
+      ],
+      "id": "95.e",
+      "catalog_id": 25
+    }
+  ],
+  "patch_ids": {
+    "@S095.b1": "3a866429053f97a5f3a69a3d1b7a6394509119e0",
+    "@S095.t1": "db97dc224e0e942e1241745e87cb0c7289e41dfd",
+    "@S095.c99_m99b": "f632d63a07982197b9397e9d6116b0401bdb53f9",
+    "@S095.c99_m99t": "ad8c30baee4dce594ca17520b7c6a3e06d4e0343",
+    "@S095.c81_m81b": "d5d855d029b96b4bf757cef2eb88953daceb6ac0",
+    "@S095.c81_m81t": "cb6c3de09a75ef7ca20b70bea9483e753b264fec",
+    "@S095.c75_b1": "e7f408b8f44d9579b3990b88b6c6d33251bf021f",
+    "@S095.c75_t1": "833e63891f7d47bd223b11996cb0301a04adb3ec",
+    "@S095.c83_k83b": "17b4843091aec3d37e3b9d7dd68b8dcacbaebdf2",
+    "@S095.c83_k83t": "c1fbf214d48ece591f2b8a7e6f6c472d8b0b4091",
+    "@S095.c25_t1": "8bf03b19853517a727581f79fe6e1a73b94d25f4",
+    "@S095.c25_t2": "595f6b1edebba00502e95bd34528016165820725"
+  },
+  "commit_labels": {
+    "S095.F": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+    "S095.b1": "a932a5a0cad31d5f97760ddb96d854eae80f6233",
+    "S095.c25_b1": "9008657e3aed65b2003977820a620d3fc3113565",
+    "S095.c25_t1": "55cbb0949082d5e32fd8e2c57ca7949b3e6b4a63",
+    "S095.c25_t2": "2fc6ccc582250b741ab4249d0d85a172a1dc40ab",
+    "S095.c75_b1": "f2f47ba7a78ed1b5a84b44c38c5cad7e79145c10",
+    "S095.c75_t1": "a09b8e82e0f54d9f21add39cf154af822ba1296a",
+    "S095.c81_m81b": "30f6b4143bc0d94996699e061e055a60e7594511",
+    "S095.c81_m81t": "161076de5e091d1c43ef75df0bec6bfe3b135e38",
+    "S095.c83_k83b": "25fd70d6bee95402db679bc6a389068a1a656feb",
+    "S095.c83_k83t": "50d27fb8d3ff1ae59816eae5f6d34bf11f0ce414",
+    "S095.c99_m99b": "7a0ad99ffb1e0057321f343f6ecfbdff2cf911f9",
+    "S095.c99_m99t": "733ce6ca1a42d5593668744cf04124a6b06a969a",
+    "S095.t1": "b25cb90f845c47b0aa866881e10473aaf7477cb8"
+  }
+}

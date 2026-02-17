@@ -1,0 +1,78 @@
+{
+  "scenario_id": "S071",
+  "repo_id": "testing-3",
+  "title": "One branch deletes a helper module that the other branch fixes",
+  "difficulty": 1,
+  "primary_catalog_id": 71,
+  "catalog_ids": [
+    71
+  ],
+  "expected_git_outcome": "CONFLICT",
+  "merge_pair": {
+    "base": "scenario/S071/base",
+    "target": "scenario/S071/target",
+    "all_pairs": [
+      [
+        "scenario/S071/base",
+        "scenario/S071/target"
+      ]
+    ],
+    "additional_sides": {}
+  },
+  "fork_commit": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+  "expected_conflicted_files": [
+    "clinkit/helpers.py"
+  ],
+  "validation_method": "merge",
+  "clone_profile": "full",
+  "branches": [
+    "scenario/S071/base",
+    "scenario/S071/target"
+  ],
+  "original_commits": [
+    "7087e759d88a157d16326c3bf71518842948f178"
+  ],
+  "derived_commits": [
+    "80c6b4b3a10e59afe7632bb39cbe97b7bd175db8"
+  ],
+  "change_relationships": [
+    {
+      "a": "80c6b4b3a10e59afe7632bb39cbe97b7bd175db8",
+      "b": "7087e759d88a157d16326c3bf71518842948f178",
+      "relation": "unrelated"
+    }
+  ],
+  "files": [
+    "clinkit/helpers.py",
+    "tests/test_helpers.py"
+  ],
+  "regions": [
+    {
+      "file": "clinkit/helpers.py",
+      "function": "clip"
+    }
+  ],
+  "testing_evidence": "none",
+  "deployment_evidence": "none",
+  "metadata_availability": "full",
+  "known_uncertainty": "none",
+  "expected_warnings": [
+    "one side modifies a file the other deleted"
+  ],
+  "safe_resolution_constraints": [
+    "deleting the module drops the target's guard fix"
+  ],
+  "human_review_required": false,
+  "assertions": [],
+  "id": "71",
+  "sub_entries": [],
+  "patch_ids": {
+    "@S071.t1": "0add1f0f7bd58888595d405d755e7c34d33d45f9",
+    "@S071.b1": "7ef3ac0b0510e452600da5db4a1234bf5cdd3210"
+  },
+  "commit_labels": {
+    "S071.F": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+    "S071.b1": "80c6b4b3a10e59afe7632bb39cbe97b7bd175db8",
+    "S071.t1": "7087e759d88a157d16326c3bf71518842948f178"
+  }
+}

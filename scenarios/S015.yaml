@@ -1,0 +1,61 @@
+scenario_id: S015
+repo_id: testing-3
+title: A backport carries only part of the original change
+difficulty: 2
+primary_catalog_id: 15
+catalog_ids:
+- 15
+expected_git_outcome: CONFLICT
+merge_pair:
+  base: scenario/S015/base
+  target: scenario/S015/target
+  all_pairs:
+  - - scenario/S015/base
+    - scenario/S015/target
+  additional_sides: {}
+fork_commit: '@S015.F'
+expected_conflicted_files:
+- clinkit/rules.py
+- tests/test_rules.py
+validation_method: merge
+clone_profile: full
+branches:
+- scenario/S015/base
+- scenario/S015/target
+original_commits:
+- '@S015.t1'
+derived_commits:
+- '@S015.b1'
+change_relationships:
+- a: '@S015.t1'
+  b: '@S015.b1'
+  relation: partial
+files:
+- clinkit/rules.py
+- tests/test_rules.py
+regions:
+- file: clinkit/rules.py
+  function: max_supply_days
+- file: clinkit/rules.py
+  function: lab_turnaround_minutes
+testing_evidence: none
+deployment_evidence: none
+metadata_availability: full
+known_uncertainty: none
+expected_warnings:
+- only part of the original change was backported
+safe_resolution_constraints: []
+human_review_required: false
+assertions:
+- type: patch_id_differs
+  a: '@S015.t1'
+  b: '@S015.b1'
+- type: diff_subset
+  small:
+  - '@S015.b1'
+  big: '@S015.t1'
+id: '15'
+sub_entries: []
+patch_ids:
+  '@S015.t1': 63f89bacb96f5c25c12f8106c995ed9465ef53f4
+  '@S015.b1': 58e30812b8026f2ca49c6b6e9d48bd8b95673b1b

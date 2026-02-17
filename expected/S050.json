@@ -1,0 +1,86 @@
+{
+  "scenario_id": "S050",
+  "repo_id": "testing-3",
+  "title": "The same history seen through a clone with one unreadable CI note",
+  "difficulty": 3,
+  "primary_catalog_id": 50,
+  "catalog_ids": [
+    50
+  ],
+  "expected_git_outcome": "CONFLICT",
+  "merge_pair": {
+    "base": "scenario/S025/base",
+    "target": "scenario/S025/target",
+    "all_pairs": [
+      [
+        "scenario/S025/base",
+        "scenario/S025/target"
+      ]
+    ],
+    "additional_sides": {}
+  },
+  "fork_commit": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+  "expected_conflicted_files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py"
+  ],
+  "validation_method": "merge",
+  "clone_profile": {
+    "name": "corrupt-note",
+    "corrupt_note": "ci",
+    "effect": "one ci note blob is not valid JSON"
+  },
+  "sits_on": [
+    "S025"
+  ],
+  "branches": [
+    "scenario/S025/base",
+    "scenario/S025/target"
+  ],
+  "id": "50",
+  "original_commits": [
+    "4dfd11e22d444fe40843d6cf6b4c7abbe4098ef9"
+  ],
+  "derived_commits": [
+    "e7f8df1f07345ea160939a9b7e1e6cee2d347558"
+  ],
+  "change_relationships": [
+    {
+      "a": "4dfd11e22d444fe40843d6cf6b4c7abbe4098ef9",
+      "b": "e7f8df1f07345ea160939a9b7e1e6cee2d347558",
+      "relation": "unrelated"
+    }
+  ],
+  "files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py"
+  ],
+  "regions": [
+    {
+      "file": "clinkit/rules.py",
+      "function": "late_payment_fee_bp"
+    }
+  ],
+  "testing_evidence": "t1 PASSED against the old suite; the suite changed in t2 (digest differs)",
+  "deployment_evidence": "none",
+  "metadata_availability": "one ci note blob is not valid JSON",
+  "known_uncertainty": "evidence is reachable only as far as the clone profile allows",
+  "expected_warnings": [
+    "clone profile corrupt-note: one ci note blob is not valid JSON",
+    "recorded suite_digest no longer matches the current test suite"
+  ],
+  "safe_resolution_constraints": [],
+  "human_review_required": true,
+  "assertions": [
+    {
+      "type": "profile_effect",
+      "profile": "corrupt-note"
+    }
+  ],
+  "sub_entries": [],
+  "patch_ids": {
+    "@S025.t1": "dc28f04d5e408a0ea125e800bfd1b55611f9067e",
+    "@S025.t2": "595f6b1edebba00502e95bd34528016165820725"
+  },
+  "commit_labels": {}
+}

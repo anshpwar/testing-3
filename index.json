@@ -1,0 +1,106 @@
+[
+  {
+    "scenario_id": "S071",
+    "catalog_ids": [
+      71
+    ],
+    "difficulty": 1,
+    "expected_git_outcome": "CONFLICT",
+    "title": "One branch deletes a helper module that the other branch fixes"
+  },
+  {
+    "scenario_id": "S015",
+    "catalog_ids": [
+      15
+    ],
+    "difficulty": 2,
+    "expected_git_outcome": "CONFLICT",
+    "title": "A backport carries only part of the original change"
+  },
+  {
+    "scenario_id": "S041",
+    "catalog_ids": [
+      41
+    ],
+    "difficulty": 2,
+    "expected_git_outcome": "EVIDENCE_ONLY",
+    "title": "A passing change is deployed and then rolled back"
+  },
+  {
+    "scenario_id": "S004",
+    "catalog_ids": [
+      4
+    ],
+    "difficulty": 3,
+    "expected_git_outcome": "CONFLICT",
+    "title": "Two commits share one hunk but diverge in a second schedule"
+  },
+  {
+    "scenario_id": "S025",
+    "catalog_ids": [
+      25
+    ],
+    "difficulty": 3,
+    "expected_git_outcome": "CONFLICT",
+    "title": "A passing CI record predates a change to the test suite"
+  },
+  {
+    "scenario_id": "S050",
+    "catalog_ids": [
+      50
+    ],
+    "difficulty": 3,
+    "expected_git_outcome": "CONFLICT",
+    "title": "The same history seen through a clone with one unreadable CI note"
+  },
+  {
+    "scenario_id": "S030",
+    "catalog_ids": [
+      30,
+      86,
+      31
+    ],
+    "difficulty": 4,
+    "expected_git_outcome": "CONFLICT",
+    "title": "CI and a release-board attestation disagree about one commit"
+  },
+  {
+    "scenario_id": "S085",
+    "catalog_ids": [
+      85,
+      88,
+      27
+    ],
+    "difficulty": 4,
+    "expected_git_outcome": "CONFLICT",
+    "title": "Evidence notes are truncated or carry the wrong field types"
+  },
+  {
+    "scenario_id": "S081",
+    "catalog_ids": [
+      81,
+      99,
+      76,
+      15,
+      26,
+      36
+    ],
+    "difficulty": 5,
+    "expected_git_outcome": "CLEAN_BUT_BROKEN",
+    "title": "Two branches add migrations with the same parent inside a busy history"
+  },
+  {
+    "scenario_id": "S095",
+    "catalog_ids": [
+      95,
+      99,
+      81,
+      75,
+      83,
+      25
+    ],
+    "difficulty": 5,
+    "expected_git_outcome": "CONFLICT",
+    "title": "A generated manifest is edited on both branches"
+  }
+]

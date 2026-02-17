@@ -1,0 +1,230 @@
+scenario_id: S095
+repo_id: testing-3
+title: A generated manifest is edited on both branches
+difficulty: 5
+primary_catalog_id: 95
+catalog_ids:
+- 95
+- 99
+- 81
+- 75
+- 83
+- 25
+expected_git_outcome: CONFLICT
+merge_pair:
+  base: scenario/S095/base
+  target: scenario/S095/target
+  all_pairs:
+  - - scenario/S095/base
+    - scenario/S095/target
+  additional_sides: {}
+fork_commit: '@S095.F'
+expected_conflicted_files:
+- clinkit/rules.py
+- encounters/models.py
+- generated/manifest.json
+- requirements.txt
+- tests/test_rules.py
+validation_method: merge
+clone_profile: full
+branches:
+- scenario/S095/base
+- scenario/S095/target
+original_commits:
+- '@S095.b1'
+derived_commits:
+- '@S095.t1'
+change_relationships:
+- a: '@S095.b1'
+  b: '@S095.t1'
+  relation: unrelated
+files:
+- clinkit/rules.py
+- tests/test_rules.py
+- generated/manifest.json
+regions:
+- file: clinkit/rules.py
+  function: fall_risk_points
+testing_evidence: t1 PASSED against the old suite; the suite changed in t2 (digest differs)
+deployment_evidence: none
+metadata_availability: full
+known_uncertainty: none
+expected_warnings:
+- generated file conflicts; regenerate after resolving the source
+safe_resolution_constraints:
+- resolve rules.py first, then rerun python tools/gen_manifest.py
+human_review_required: true
+assertions:
+- type: generated_matches_source
+  commit: '@S095.b1'
+- type: generated_matches_source
+  commit: '@S095.t1'
+id: '95'
+sub_entries:
+- original_commits:
+  - '@S095.c99_m99b'
+  derived_commits:
+  - '@S095.c99_m99t'
+  change_relationships:
+  - a: '@S095.c99_m99b'
+    b: '@S095.c99_m99t'
+    relation: unrelated
+  files:
+  - encounters/migrations/0002_priority_99.py
+  - encounters/migrations/0002_region_99.py
+  - encounters/models.py
+  regions:
+  - file: encounters/models.py
+    model: Encounter
+  testing_evidence: none
+  deployment_evidence: none
+  metadata_availability: full
+  known_uncertainty: none
+  expected_warnings:
+  - two migrations share a parent; Django reports multiple leaf nodes
+  safe_resolution_constraints:
+  - resolve with a merge migration (makemigrations --merge)
+  human_review_required: false
+  assertions:
+  - type: migration_leaves
+    app: encounters
+    expect_greater_than: 1
+  - type: merge_then_tests
+    expect: fail
+    suites:
+    - unit
+  id: 95.a
+  catalog_id: 99
+- original_commits:
+  - '@S095.c81_m81b'
+  derived_commits:
+  - '@S095.c81_m81t'
+  change_relationships:
+  - a: '@S095.c81_m81b'
+    b: '@S095.c81_m81t'
+    relation: unrelated
+  files:
+  - encounters/migrations/0003_note_120_81.py
+  - encounters/migrations/0003_note_200_81.py
+  - encounters/models.py
+  regions:
+  - file: encounters/models.py
+    model: Encounter
+    field: note
+  testing_evidence: none
+  deployment_evidence: none
+  metadata_availability: full
+  known_uncertainty: none
+  expected_warnings:
+  - models.py conflicts and the two AlterField migrations also fork the migration graph
+  safe_resolution_constraints:
+  - choose one max_length, then add a merge migration
+  human_review_required: true
+  assertions:
+  - type: migration_leaves
+    app: encounters
+    expect_greater_than: 1
+  id: 95.b
+  catalog_id: 81
+- original_commits:
+  - '@S095.c75_b1'
+  derived_commits:
+  - '@S095.c75_t1'
+  change_relationships:
+  - a: '@S095.c75_b1'
+    b: '@S095.c75_t1'
+    relation: unrelated
+  files:
+  - requirements.txt
+  regions:
+  - file: requirements.txt
+    line: pytest
+  testing_evidence: none
+  deployment_evidence: none
+  metadata_availability: full
+  known_uncertainty: none
+  expected_warnings:
+  - two different pins for the same dependency
+  safe_resolution_constraints:
+  - pick one pin; do not keep both lines
+  human_review_required: false
+  assertions: []
+  id: 95.c
+  catalog_id: 75
+- original_commits:
+  - '@S095.c83_k83b'
+  derived_commits:
+  - '@S095.c83_k83t'
+  change_relationships:
+  - a: '@S095.c83_k83b'
+    b: '@S095.c83_k83t'
+    relation: unrelated
+  files:
+  - clinkit/contract.py
+  - clinkit/consumer_83.py
+  regions:
+  - file: clinkit/contract.py
+    function: build_summary
+  testing_evidence: none
+  deployment_evidence: none
+  metadata_availability: full
+  known_uncertainty: none
+  expected_warnings:
+  - clean textual merge; the integrated code fails (new consumer reads the renamed key)
+  safe_resolution_constraints:
+  - Git cannot detect this; only the test run can
+  human_review_required: false
+  assertions:
+  - type: merge_then_tests
+    expect: fail
+    suites:
+    - unit
+  id: 95.d
+  catalog_id: 83
+- original_commits:
+  - '@S095.c25_t1'
+  derived_commits:
+  - '@S095.c25_t2'
+  change_relationships:
+  - a: '@S095.c25_t1'
+    b: '@S095.c25_t2'
+    relation: unrelated
+  files:
+  - clinkit/rules.py
+  - tests/test_rules.py
+  regions:
+  - file: clinkit/rules.py
+    function: bed_day_rate_cents
+  testing_evidence: t1 PASSED against the old suite; the suite changed in t2 (digest differs)
+  deployment_evidence: none
+  metadata_availability: full
+  known_uncertainty: none
+  expected_warnings:
+  - recorded suite_digest no longer matches the current test suite
+  safe_resolution_constraints: []
+  human_review_required: false
+  assertions:
+  - type: suite_digest_differs
+    a: '@S095.c25_t1'
+    b: '@S095.c25_t2'
+  - type: note
+    ref: ci
+    commit: '@S095.c25_t1'
+    expect: present
+    fields:
+      status: PASSED
+  id: 95.e
+  catalog_id: 25
+patch_ids:
+  '@S095.b1': 3a866429053f97a5f3a69a3d1b7a6394509119e0
+  '@S095.t1': db97dc224e0e942e1241745e87cb0c7289e41dfd
+  '@S095.c99_m99b': f632d63a07982197b9397e9d6116b0401bdb53f9
+  '@S095.c99_m99t': ad8c30baee4dce594ca17520b7c6a3e06d4e0343
+  '@S095.c81_m81b': d5d855d029b96b4bf757cef2eb88953daceb6ac0
+  '@S095.c81_m81t': cb6c3de09a75ef7ca20b70bea9483e753b264fec
+  '@S095.c75_b1': e7f408b8f44d9579b3990b88b6c6d33251bf021f
+  '@S095.c75_t1': 833e63891f7d47bd223b11996cb0301a04adb3ec
+  '@S095.c83_k83b': 17b4843091aec3d37e3b9d7dd68b8dcacbaebdf2
+  '@S095.c83_k83t': c1fbf214d48ece591f2b8a7e6f6c472d8b0b4091
+  '@S095.c25_t1': 8bf03b19853517a727581f79fe6e1a73b94d25f4
+  '@S095.c25_t2': 595f6b1edebba00502e95bd34528016165820725

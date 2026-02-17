@@ -1,0 +1,241 @@
+scenario_id: S081
+repo_id: testing-3
+title: Two branches add migrations with the same parent inside a busy history
+difficulty: 5
+primary_catalog_id: 81
+catalog_ids:
+- 81
+- 99
+- 76
+- 15
+- 26
+- 36
+expected_git_outcome: CLEAN_BUT_BROKEN
+merge_pair:
+  base: scenario/S081/base
+  target: scenario/S081/target
+  all_pairs:
+  - - scenario/S081/base
+    - scenario/S081/target
+  additional_sides: {}
+fork_commit: '@S081.F'
+expected_conflicted_files: []
+validation_method: merge
+clone_profile: full
+branches:
+- scenario/S081/base
+- scenario/S081/target
+original_commits:
+- '@S081.m81b'
+derived_commits:
+- '@S081.m81t'
+change_relationships:
+- a: '@S081.m81b'
+  b: '@S081.m81t'
+  relation: unrelated
+files:
+- encounters/migrations/0002_priority_81.py
+- encounters/migrations/0002_region_81.py
+- encounters/models.py
+regions:
+- file: encounters/models.py
+  model: Encounter
+testing_evidence: t1 PASSED; source changed again in t2, which has no record
+deployment_evidence: t1 deployed to prod (synthetic record); no test record exists
+metadata_availability: full
+known_uncertainty: none
+expected_warnings:
+- two migrations share a parent; Django reports multiple leaf nodes
+safe_resolution_constraints:
+- resolve with a merge migration (makemigrations --merge)
+human_review_required: false
+assertions:
+- type: migration_leaves
+  app: encounters
+  expect_greater_than: 1
+- type: merge_then_tests
+  expect: fail
+  suites:
+  - unit
+id: '81'
+sub_entries:
+- original_commits:
+  - '@S081.c99_m99b'
+  derived_commits:
+  - '@S081.c99_m99t'
+  change_relationships:
+  - a: '@S081.c99_m99b'
+    b: '@S081.c99_m99t'
+    relation: unrelated
+  files:
+  - encounters/migrations/0003_priority_99.py
+  - encounters/migrations/0003_region_99.py
+  - encounters/models.py
+  regions:
+  - file: encounters/models.py
+    model: Encounter
+  testing_evidence: none
+  deployment_evidence: none
+  metadata_availability: full
+  known_uncertainty: none
+  expected_warnings:
+  - two migrations share a parent; Django reports multiple leaf nodes
+  safe_resolution_constraints:
+  - resolve with a merge migration (makemigrations --merge)
+  human_review_required: false
+  assertions:
+  - type: migration_leaves
+    app: encounters
+    expect_greater_than: 1
+  - type: merge_then_tests
+    expect: fail
+    suites:
+    - unit
+  id: 81.a
+  catalog_id: 99
+- original_commits:
+  - '@S081.c76_k76b'
+  derived_commits:
+  - '@S081.c76_k76t'
+  change_relationships:
+  - a: '@S081.c76_k76b'
+    b: '@S081.c76_k76t'
+    relation: unrelated
+  files:
+  - encounters/models.py
+  - encounters/api_extra.py
+  regions:
+  - file: encounters/models.py
+    model: Encounter
+    field: amount_cents
+  testing_evidence: none
+  deployment_evidence: none
+  metadata_availability: full
+  known_uncertainty: none
+  expected_warnings:
+  - clean merge; the new API view still uses the renamed model field
+  safe_resolution_constraints:
+  - Git cannot detect this; only the test run can
+  human_review_required: false
+  assertions:
+  - type: merge_then_tests
+    expect: fail
+    suites:
+    - integration
+  id: 81.b
+  catalog_id: 76
+- original_commits:
+  - '@S081.c15_t1'
+  derived_commits:
+  - '@S081.c15_b1'
+  change_relationships:
+  - a: '@S081.c15_t1'
+    b: '@S081.c15_b1'
+    relation: partial
+  files:
+  - clinkit/rules.py
+  - tests/test_rules.py
+  regions:
+  - file: clinkit/rules.py
+    function: discharge_review_hours
+  - file: clinkit/rules.py
+    function: nurse_patient_limit
+  testing_evidence: none
+  deployment_evidence: none
+  metadata_availability: full
+  known_uncertainty: none
+  expected_warnings:
+  - only part of the original change was backported
+  safe_resolution_constraints: []
+  human_review_required: false
+  assertions:
+  - type: patch_id_differs
+    a: '@S081.c15_t1'
+    b: '@S081.c15_b1'
+  - type: diff_subset
+    small:
+    - '@S081.c15_b1'
+    big: '@S081.c15_t1'
+  id: 81.c
+  catalog_id: 15
+- original_commits:
+  - '@S081.c26_t1'
+  derived_commits:
+  - '@S081.c26_t2'
+  change_relationships:
+  - a: '@S081.c26_t1'
+    b: '@S081.c26_t2'
+    relation: unrelated
+  files:
+  - clinkit/rules.py
+  - tests/test_rules.py
+  regions:
+  - file: clinkit/rules.py
+    function: fall_risk_points
+  testing_evidence: t1 PASSED; source changed again in t2, which has no record
+  deployment_evidence: none
+  metadata_availability: full
+  known_uncertainty: none
+  expected_warnings:
+  - tested code was modified afterwards
+  safe_resolution_constraints: []
+  human_review_required: false
+  assertions:
+  - type: tree_differs
+    a: '@S081.c26_t1'
+    b: '@S081.c26_t2'
+    file: clinkit/rules.py
+  - type: note
+    ref: ci
+    commit: '@S081.c26_t2'
+    expect: absent
+  id: 81.d
+  catalog_id: 26
+- original_commits:
+  - '@S081.c36_t1'
+  derived_commits:
+  - '@S081.c36_b1'
+  change_relationships:
+  - a: '@S081.c36_t1'
+    b: '@S081.c36_b1'
+    relation: unrelated
+  files:
+  - clinkit/rules.py
+  - tests/test_rules.py
+  regions:
+  - file: clinkit/rules.py
+    function: max_refills
+  testing_evidence: none
+  deployment_evidence: t1 deployed to prod (synthetic record); no test record exists
+  metadata_availability: full
+  known_uncertainty: none
+  expected_warnings:
+  - deployment is not proof of testing
+  safe_resolution_constraints: []
+  human_review_required: false
+  assertions:
+  - type: note
+    ref: deploy
+    commit: '@S081.c36_t1'
+    expect: present
+    fields:
+      env: prod
+  - type: note
+    ref: ci
+    commit: '@S081.c36_t1'
+    expect: absent
+  id: 81.e
+  catalog_id: 36
+patch_ids:
+  '@S081.m81b': 5528ffe4536e90c0641b1afbc9fb93bc9983cca1
+  '@S081.m81t': 7a6f9fa97390af2d13005677544627a02319864f
+  '@S081.c99_m99b': 32ade15dc22b8e2d188fd02e3de997c00de9fb8f
+  '@S081.c99_m99t': 17fb733e4242bf4d4cd330805c65195dd930b28a
+  '@S081.c76_k76b': 5e318bb3515b881b9566eba5ecd4c5bc68d34155
+  '@S081.c76_k76t': 01266e601929a5f8325ced6ec0022eedd0d483ce
+  '@S081.c15_t1': 92f4b7657894afb789c922530f64dcfc8d6fe8c2
+  '@S081.c15_b1': cd2cbfbc488b8c016e962c8110da768d49bae01c
+  '@S081.c26_t1': eec0b490889275ebdb0e83715592d4c13faf7640
+  '@S081.c26_t2': ad3153d349ad085c16c3a9d6e846d8c750a50b80
+  '@S081.c36_t1': 313a5113f321104d17ba3b0f22397ba952b60e00
+  '@S081.c36_b1': e5fe04410ff0f66bb6c1675084721057de5de71b

@@ -1,0 +1,61 @@
+scenario_id: S025
+repo_id: testing-3
+title: A passing CI record predates a change to the test suite
+difficulty: 3
+primary_catalog_id: 25
+catalog_ids:
+- 25
+expected_git_outcome: CONFLICT
+merge_pair:
+  base: scenario/S025/base
+  target: scenario/S025/target
+  all_pairs:
+  - - scenario/S025/base
+    - scenario/S025/target
+  additional_sides: {}
+fork_commit: '@S025.F'
+expected_conflicted_files:
+- clinkit/rules.py
+- tests/test_rules.py
+validation_method: merge
+clone_profile: full
+branches:
+- scenario/S025/base
+- scenario/S025/target
+original_commits:
+- '@S025.t1'
+derived_commits:
+- '@S025.t2'
+change_relationships:
+- a: '@S025.t1'
+  b: '@S025.t2'
+  relation: unrelated
+files:
+- clinkit/rules.py
+- tests/test_rules.py
+regions:
+- file: clinkit/rules.py
+  function: late_payment_fee_bp
+testing_evidence: t1 PASSED against the old suite; the suite changed in t2 (digest differs)
+deployment_evidence: none
+metadata_availability: full
+known_uncertainty: none
+expected_warnings:
+- recorded suite_digest no longer matches the current test suite
+safe_resolution_constraints: []
+human_review_required: false
+assertions:
+- type: suite_digest_differs
+  a: '@S025.t1'
+  b: '@S025.t2'
+- type: note
+  ref: ci
+  commit: '@S025.t1'
+  expect: present
+  fields:
+    status: PASSED
+id: '25'
+sub_entries: []
+patch_ids:
+  '@S025.t1': dc28f04d5e408a0ea125e800bfd1b55611f9067e
+  '@S025.t2': 595f6b1edebba00502e95bd34528016165820725

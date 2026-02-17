@@ -1,0 +1,207 @@
+{
+  "scenario_id": "S030",
+  "repo_id": "testing-3",
+  "title": "CI and a release-board attestation disagree about one commit",
+  "difficulty": 4,
+  "primary_catalog_id": 30,
+  "catalog_ids": [
+    30,
+    86,
+    31
+  ],
+  "expected_git_outcome": "CONFLICT",
+  "merge_pair": {
+    "base": "scenario/S030/base",
+    "target": "scenario/S030/target",
+    "all_pairs": [
+      [
+        "scenario/S030/base",
+        "scenario/S030/target"
+      ]
+    ],
+    "additional_sides": {}
+  },
+  "fork_commit": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+  "expected_conflicted_files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py"
+  ],
+  "validation_method": "merge",
+  "clone_profile": "full",
+  "branches": [
+    "scenario/S030/base",
+    "scenario/S030/target"
+  ],
+  "original_commits": [
+    "94c5516938799ce3c3ca6da297dab02d14091d48"
+  ],
+  "derived_commits": [
+    "3434d896c96ff3122568c50fc17689a2bf5724a4"
+  ],
+  "change_relationships": [
+    {
+      "a": "94c5516938799ce3c3ca6da297dab02d14091d48",
+      "b": "3434d896c96ff3122568c50fc17689a2bf5724a4",
+      "relation": "unrelated"
+    }
+  ],
+  "files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py"
+  ],
+  "regions": [
+    {
+      "file": "clinkit/rules.py",
+      "function": "lab_turnaround_minutes"
+    }
+  ],
+  "testing_evidence": "ci says PASSED, the authoritative release-board attestation says FAILED",
+  "deployment_evidence": "none",
+  "metadata_availability": "duplicate evidence identifiers",
+  "known_uncertainty": "none",
+  "expected_warnings": [
+    "contradictory records for one commit"
+  ],
+  "safe_resolution_constraints": [],
+  "human_review_required": true,
+  "assertions": [
+    {
+      "type": "note",
+      "ref": "ci",
+      "commit": "94c5516938799ce3c3ca6da297dab02d14091d48",
+      "expect": "present",
+      "fields": {
+        "status": "PASSED"
+      }
+    },
+    {
+      "type": "note",
+      "ref": "provenance",
+      "commit": "94c5516938799ce3c3ca6da297dab02d14091d48",
+      "expect": "present",
+      "fields": {
+        "status": "FAILED",
+        "authoritative": true
+      }
+    }
+  ],
+  "id": "30",
+  "sub_entries": [
+    {
+      "original_commits": [
+        "660ee35ad3c2c8475e9c26daf81f244b600b5a61"
+      ],
+      "derived_commits": [
+        "fc6eddab05618be9b83419eaf8466bd23815164d",
+        "cb0cf9ccaced3571eefd9890d618f6a19ff1b6a6"
+      ],
+      "change_relationships": [
+        {
+          "a": "660ee35ad3c2c8475e9c26daf81f244b600b5a61",
+          "b": "fc6eddab05618be9b83419eaf8466bd23815164d",
+          "relation": "unrelated"
+        }
+      ],
+      "files": [
+        "clinkit/rules.py",
+        "tests/test_rules.py"
+      ],
+      "regions": [
+        {
+          "file": "clinkit/rules.py",
+          "function": "recheck_interval_hours"
+        }
+      ],
+      "testing_evidence": "run_id run-r03-0021 reused on three unrelated commits with conflicting statuses",
+      "deployment_evidence": "none",
+      "metadata_availability": "duplicate evidence identifiers",
+      "known_uncertainty": "none",
+      "expected_warnings": [
+        "run_id is not unique; none of the records can be trusted"
+      ],
+      "safe_resolution_constraints": [],
+      "human_review_required": true,
+      "assertions": [
+        {
+          "type": "note_field_equal_across",
+          "ref": "ci",
+          "commits": [
+            "660ee35ad3c2c8475e9c26daf81f244b600b5a61",
+            "fc6eddab05618be9b83419eaf8466bd23815164d",
+            "cb0cf9ccaced3571eefd9890d618f6a19ff1b6a6"
+          ],
+          "field": "run_id"
+        }
+      ],
+      "id": "30.a",
+      "catalog_id": 86
+    },
+    {
+      "original_commits": [
+        "eca8682126b0cdf9c1a0133e947dd62404ebc349"
+      ],
+      "derived_commits": [
+        "696322a972c1dffaae5d04cb4e109573f734d932"
+      ],
+      "change_relationships": [
+        {
+          "a": "eca8682126b0cdf9c1a0133e947dd62404ebc349",
+          "b": "696322a972c1dffaae5d04cb4e109573f734d932",
+          "relation": "unrelated"
+        }
+      ],
+      "files": [
+        "clinkit/rules.py",
+        "tests/test_rules.py"
+      ],
+      "regions": [
+        {
+          "file": "clinkit/rules.py",
+          "function": "no_show_fee_cents"
+        }
+      ],
+      "testing_evidence": "t1 PASSED but started_at/finished_at are null",
+      "deployment_evidence": "none",
+      "metadata_availability": "timestamps missing",
+      "known_uncertainty": "none",
+      "expected_warnings": [
+        "execution time cannot be established; freshness unknown"
+      ],
+      "safe_resolution_constraints": [],
+      "human_review_required": false,
+      "assertions": [
+        {
+          "type": "note",
+          "ref": "ci",
+          "commit": "eca8682126b0cdf9c1a0133e947dd62404ebc349",
+          "expect": "present",
+          "fields": {
+            "started_at": null,
+            "finished_at": null
+          }
+        }
+      ],
+      "id": "30.b",
+      "catalog_id": 31
+    }
+  ],
+  "patch_ids": {
+    "@S030.t1": "07f21c8478c828b49dfda4422d5e0b90f647b774",
+    "@S030.b1": "1976becdb6aa626477c3d2cdd8ee146004023df5",
+    "@S030.c86_t1": "e0f0bac3f3aa9bee3c6c45e288e6d49cdf06e08f",
+    "@S030.c86_b1": "c7cfe43ef0e52bea598669c372bc07060388bf75",
+    "@S030.c86_t2": "0d7e2c136bd9f426272d8775c77f93d13f8b7aa4",
+    "@S030.c31_t1": "5654be8601443485be4972593d41a78ed03da442",
+    "@S030.c31_b1": "f6491584026e5e8264660bfa843d23c308edb01b"
+  },
+  "commit_labels": {
+    "S030.F": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+    "S030.b1": "3434d896c96ff3122568c50fc17689a2bf5724a4",
+    "S030.c31_b1": "696322a972c1dffaae5d04cb4e109573f734d932",
+    "S030.c31_t1": "eca8682126b0cdf9c1a0133e947dd62404ebc349",
+    "S030.c86_b1": "fc6eddab05618be9b83419eaf8466bd23815164d",
+    "S030.c86_t1": "660ee35ad3c2c8475e9c26daf81f244b600b5a61",
+    "S030.c86_t2": "cb0cf9ccaced3571eefd9890d618f6a19ff1b6a6",
+    "S030.t1": "94c5516938799ce3c3ca6da297dab02d14091d48"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "scenario_id": "S004",
+  "repo_id": "testing-3",
+  "title": "Two commits share one hunk but diverge in a second schedule",
+  "difficulty": 3,
+  "primary_catalog_id": 4,
+  "catalog_ids": [
+    4
+  ],
+  "expected_git_outcome": "CONFLICT",
+  "merge_pair": {
+    "base": "scenario/S004/base",
+    "target": "scenario/S004/target",
+    "all_pairs": [
+      [
+        "scenario/S004/base",
+        "scenario/S004/target"
+      ]
+    ],
+    "additional_sides": {}
+  },
+  "fork_commit": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+  "expected_conflicted_files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py"
+  ],
+  "validation_method": "merge",
+  "clone_profile": "full",
+  "branches": [
+    "scenario/S004/base",
+    "scenario/S004/target"
+  ],
+  "original_commits": [
+    "a808cd6a8e66ccdb756ef0330d9a4c0fbbedb5ec"
+  ],
+  "derived_commits": [
+    "c273071dc066fb5380241a5115bb8fdc2ddc68e4"
+  ],
+  "change_relationships": [
+    {
+      "a": "a808cd6a8e66ccdb756ef0330d9a4c0fbbedb5ec",
+      "b": "c273071dc066fb5380241a5115bb8fdc2ddc68e4",
+      "relation": "partial"
+    }
+  ],
+  "files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py"
+  ],
+  "regions": [
+    {
+      "file": "clinkit/rules.py",
+      "function": "insurer_coverage_bp"
+    },
+    {
+      "file": "clinkit/rules.py",
+      "function": "discharge_review_hours"
+    }
+  ],
+  "testing_evidence": "none",
+  "deployment_evidence": "none",
+  "metadata_availability": "full",
+  "known_uncertainty": "none",
+  "expected_warnings": [
+    "only the first hunk is shared; do not mark the commits identical"
+  ],
+  "safe_resolution_constraints": [],
+  "human_review_required": false,
+  "assertions": [
+    {
+      "type": "patch_id_differs",
+      "a": "a808cd6a8e66ccdb756ef0330d9a4c0fbbedb5ec",
+      "b": "c273071dc066fb5380241a5115bb8fdc2ddc68e4"
+    },
+    {
+      "type": "diff_shares_hunk",
+      "a": "a808cd6a8e66ccdb756ef0330d9a4c0fbbedb5ec",
+      "b": "c273071dc066fb5380241a5115bb8fdc2ddc68e4",
+      "function": "insurer_coverage_bp",
+      "file": "clinkit/rules.py"
+    }
+  ],
+  "id": "4",
+  "sub_entries": [],
+  "patch_ids": {
+    "@S004.b1": "1251b84c6f450a8a2665432f6b9a1ff01b7cb3da",
+    "@S004.t1": "55f87bcd949821312210a503f13d81977091f048"
+  },
+  "commit_labels": {
+    "S004.F": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+    "S004.b1": "a808cd6a8e66ccdb756ef0330d9a4c0fbbedb5ec",
+    "S004.t1": "c273071dc066fb5380241a5115bb8fdc2ddc68e4"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "scenario_id": "S041",
+  "repo_id": "testing-3",
+  "title": "A passing change is deployed and then rolled back",
+  "difficulty": 2,
+  "primary_catalog_id": 41,
+  "catalog_ids": [
+    41
+  ],
+  "expected_git_outcome": "EVIDENCE_ONLY",
+  "merge_pair": {
+    "base": "scenario/S041/base",
+    "target": "scenario/S041/target",
+    "all_pairs": [
+      [
+        "scenario/S041/base",
+        "scenario/S041/target"
+      ]
+    ],
+    "additional_sides": {}
+  },
+  "fork_commit": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+  "expected_conflicted_files": [],
+  "validation_method": "merge",
+  "clone_profile": "full",
+  "branches": [
+    "scenario/S041/base",
+    "scenario/S041/target"
+  ],
+  "original_commits": [
+    "32ab7f177b8f9f49fb92b22073ffa8d505eed372"
+  ],
+  "derived_commits": [
+    "ab644d0b0a2b98e887289e0ae4c9ebc3e336f412"
+  ],
+  "change_relationships": [
+    {
+      "a": "32ab7f177b8f9f49fb92b22073ffa8d505eed372",
+      "b": "ab644d0b0a2b98e887289e0ae4c9ebc3e336f412",
+      "relation": "reverted"
+    }
+  ],
+  "files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py"
+  ],
+  "regions": [
+    {
+      "file": "clinkit/rules.py",
+      "function": "no_show_fee_cents"
+    }
+  ],
+  "testing_evidence": "t1 PASSED in prod",
+  "deployment_evidence": "t1 deployed then rolled back by t2",
+  "metadata_availability": "full",
+  "known_uncertainty": "none",
+  "expected_warnings": [
+    "change was rolled back; tested != currently deployed"
+  ],
+  "safe_resolution_constraints": [],
+  "human_review_required": false,
+  "assertions": [
+    {
+      "type": "note",
+      "ref": "deploy",
+      "commit": "ab644d0b0a2b98e887289e0ae4c9ebc3e336f412",
+      "expect": "present",
+      "fields": {
+        "status": "ROLLED_BACK"
+      }
+    }
+  ],
+  "id": "41",
+  "sub_entries": [],
+  "patch_ids": {
+    "@S041.t1": "5654be8601443485be4972593d41a78ed03da442",
+    "@S041.t2": "fab2bbd6a2852bf8e389fa40bb2b0fb6b9e878de"
+  },
+  "commit_labels": {
+    "S041.F": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+    "S041.b1": "b9f8a5d9ddb9672533c09b6fbf55d45025d44f9f",
+    "S041.t1": "32ab7f177b8f9f49fb92b22073ffa8d505eed372",
+    "S041.t2": "ab644d0b0a2b98e887289e0ae4c9ebc3e336f412"
+  }
+}

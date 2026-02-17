@@ -1,0 +1,97 @@
+{
+  "scenario_id": "S015",
+  "repo_id": "testing-3",
+  "title": "A backport carries only part of the original change",
+  "difficulty": 2,
+  "primary_catalog_id": 15,
+  "catalog_ids": [
+    15
+  ],
+  "expected_git_outcome": "CONFLICT",
+  "merge_pair": {
+    "base": "scenario/S015/base",
+    "target": "scenario/S015/target",
+    "all_pairs": [
+      [
+        "scenario/S015/base",
+        "scenario/S015/target"
+      ]
+    ],
+    "additional_sides": {}
+  },
+  "fork_commit": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+  "expected_conflicted_files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py"
+  ],
+  "validation_method": "merge",
+  "clone_profile": "full",
+  "branches": [
+    "scenario/S015/base",
+    "scenario/S015/target"
+  ],
+  "original_commits": [
+    "812e0a5468a51613965e107528b3f2e5575de680"
+  ],
+  "derived_commits": [
+    "d8ebb268b2db95ab9daae96db4d07ebb7840877a"
+  ],
+  "change_relationships": [
+    {
+      "a": "812e0a5468a51613965e107528b3f2e5575de680",
+      "b": "d8ebb268b2db95ab9daae96db4d07ebb7840877a",
+      "relation": "partial"
+    }
+  ],
+  "files": [
+    "clinkit/rules.py",
+    "tests/test_rules.py"
+  ],
+  "regions": [
+    {
+      "file": "clinkit/rules.py",
+      "function": "max_supply_days"
+    },
+    {
+      "file": "clinkit/rules.py",
+      "function": "lab_turnaround_minutes"
+    }
+  ],
+  "testing_evidence": "none",
+  "deployment_evidence": "none",
+  "metadata_availability": "full",
+  "known_uncertainty": "none",
+  "expected_warnings": [
+    "only part of the original change was backported"
+  ],
+  "safe_resolution_constraints": [],
+  "human_review_required": false,
+  "assertions": [
+    {
+      "type": "patch_id_differs",
+      "a": "812e0a5468a51613965e107528b3f2e5575de680",
+      "b": "d8ebb268b2db95ab9daae96db4d07ebb7840877a"
+    },
+    {
+      "type": "diff_subset",
+      "small": [
+        "d8ebb268b2db95ab9daae96db4d07ebb7840877a"
+      ],
+      "big": "812e0a5468a51613965e107528b3f2e5575de680"
+    }
+  ],
+  "id": "15",
+  "sub_entries": [],
+  "patch_ids": {
+    "@S015.t1": "63f89bacb96f5c25c12f8106c995ed9465ef53f4",
+    "@S015.b1": "58e30812b8026f2ca49c6b6e9d48bd8b95673b1b"
+  },
+  "commit_labels": {
+    "S015.F": "b7d80ca25cfa8875e6ec8045b9ed9cb496bcc11f",
+    "S015.b0": "c068e8a30bafb567a35f3d13dfa4a3081cb5f2cd",
+    "S015.b1": "d8ebb268b2db95ab9daae96db4d07ebb7840877a",
+    "S015.b2": "1a5fa11454f43d7fa384bfb3c28b86862bfe0c2b",
+    "S015.t1": "812e0a5468a51613965e107528b3f2e5575de680",
+    "S015.t2": "d1b464626ad12add69992151cf61a06e434c532f"
+  }
+}

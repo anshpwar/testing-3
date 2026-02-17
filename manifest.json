@@ -1,0 +1,47 @@
+{
+  "pins": {
+    "c_compiler": "Apple clang version 17.0.0 (clang-1700.6.4.2)",
+    "django": "6.1.2",
+    "git": "git version 2.53.0",
+    "make": "GNU Make 3.81",
+    "node": "v26.3.0",
+    "pytest": "pytest 9.2.0",
+    "python": "3.14.5"
+  },
+  "repo": "testing-3",
+  "services": [
+    "clinic-web",
+    "hl7-gateway"
+  ],
+  "stack": "Django (patients, staff, wards, appointments, prescriptions, labs, billing; two-pass migrations) and an HL7 v2 style message parser",
+  "start_date": "2025-01-13T09:20:00",
+  "suites": [
+    {
+      "argv": [
+        "{py}",
+        "manage.py",
+        "test",
+        "tests",
+        "--settings=hospital.settings.test",
+        "-p",
+        "test_[!z]*.py",
+        "--noinput"
+      ],
+      "name": "unit"
+    },
+    {
+      "argv": [
+        "{py}",
+        "manage.py",
+        "test",
+        "tests",
+        "--settings=hospital.settings.test",
+        "-p",
+        "test_zz*.py",
+        "--noinput"
+      ],
+      "name": "integration"
+    }
+  ],
+  "title": "Clinic Core"
+}
